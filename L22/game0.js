@@ -41,16 +41,26 @@ The user moves a cube around the board trying to knock balls into a cone
 
 
 	function createEndScene(){
-		endScene = initScene();
-		endText = createSkyBox('youwon.png',10);
+		endScenewin = initScene();
+		endTextwin = createSkyBox('youwon.png',10);
+		endScenelose = initScene();
+		endTextlose = createSkyBox('gameover.png',10);
 		//endText.rotateX(Math.PI);
-		endScene.add(endText);
+		endScenewin.add(endTextwin);
 		var light1 = createPointLight();
 		light1.position.set(0,200,20);
-		endScene.add(light1);
-		endCamera = new THREE.PerspectiveCamera( 90, window.innerWidth / window.innerHeight, 0.1, 1000 );
-		endCamera.position.set(0,50,1);
-		endCamera.lookAt(0,0,0);
+		endScenewin.add(light1);
+		endCamerawin = new THREE.PerspectiveCamera( 90, window.innerWidth / window.innerHeight, 0.1, 1000 );
+		endCamerawin.position.set(0,50,1);
+		endCamerawin.lookAt(0,0,0);
+
+		endScenelose.add(endTextlose);
+		var light2 = createPointLight();
+		light1.position.set(0,200,20);
+		endScenelose.add(light2);
+		endCameralose = new THREE.PerspectiveCamera( 90, window.innerWidth / window.innerHeight, 0.1, 1000 );
+		endCameralose.position.set(0,50,1);
+		endCameralose.lookAt(0,0,0);
 
 	}
 
@@ -485,7 +495,11 @@ The user moves a cube around the board trying to knock balls into a cone
 
 			case "youwon":
 				//endText.rotateY(0.005);
-				renderer.render( endScene, endCamera );
+				renderer.render( endScenewin, endCamerawin);
+				break;
+
+			case "gameover":
+				renderer.render(endScenelose, endCameralose);
 				break;
 
 			case "main":
