@@ -19,7 +19,7 @@ The user moves a cube around the board trying to knock balls into a cone
 
 	var startScene, startCamera, startText;
 	var endScene, endCamera, endText;
-
+  var loseScene,loseCamera, loseText;
 
 
 
@@ -53,27 +53,30 @@ The user moves a cube around the board trying to knock balls into a cone
   }
 
 	function createEndScene(){
-		endScenewin = initScene();
-		endTextwin = createSkyBox('youwon.png',10);
-		endScenelose = initScene();
-		endTextlose = createSkyBox('gameover.png',10);
+		endScene = initScene();
+		endText = createSkyBox('youwon.png',10);
+
 		//endText.rotateX(Math.PI);
-		endScenewin.add(endTextwin);
+		endScene.add(endText);
 		var light1 = createPointLight();
 		light1.position.set(0,200,20);
-		endScenewin.add(light1);
-		endCamerawin = new THREE.PerspectiveCamera( 90, window.innerWidth / window.innerHeight, 0.1, 1000 );
-		endCamerawin.position.set(0,50,1);
-		endCamerawin.lookAt(0,0,0);
+		endScene.add(light1);
+		endCamera = new THREE.PerspectiveCamera( 90, window.innerWidth / window.innerHeight, 0.1, 1000 );
+		endCamera.position.set(0,50,1);
+		endCamera.lookAt(0,0,0);
 
-		endScenelose.add(endTextlose);
-		var light2 = createPointLight();
-		light1.position.set(0,200,20);
-		endScenelose.add(light2);
-		endCameralose = new THREE.PerspectiveCamera( 90, window.innerWidth / window.innerHeight, 0.1, 1000 );
-		endCameralose.position.set(0,50,1);
-		endCameralose.lookAt(0,0,0);
+	}
 
+	function createLoseScene(){
+		loseScene = initScene();
+		loseText = createSkyBox('gameover.png',10);
+		loseScene.add(loseText);
+		var lightL = createPointLight();
+		lightL.position.set(0,200,20);
+		loseScene.add(lightL);
+		loseCamera = new THREE.PerspectiveCamera( 90, window.innerWidth / window.innerHeight, 0.1, 1000 );
+		loseCamera.position.set(0,50,1);
+		loseCamera.lookAt(0,0,0);
 	}
 
 	/**
@@ -84,6 +87,7 @@ The user moves a cube around the board trying to knock balls into a cone
 			scene = initScene();
 			createStartScene();
 			createEndScene();
+			createLoseScene();
 			initRenderer();
 			createMainScene();
 	}
@@ -133,7 +137,7 @@ The user moves a cube around the board trying to knock balls into a cone
 			npc.position.set(30,5,-30);
       npc.addEventListener('collision',function(other_object){
         if (other_object==avatar){
-          gameState.scene = 'youwon';
+          gameState.scene = 'gameover';
         }
       })
 			scene.add(npc);
@@ -416,7 +420,14 @@ The user moves a cube around the board trying to knock balls into a cone
 		//console.dir(event);
 		// first we handle the "play again" key in the "youwon" scene
 		if (gameState.scene == 'youwon' && event.key=='r') {
-			gameState.scene = 'main';
+			gameState.scene = 'start';
+			gameState.score = 0;
+			addBalls();
+			return;
+		}
+
+		if (gameState.scene == 'gameover' && event.key=='r') {
+			gameState.scene = 'start';
 			gameState.score = 0;
 			addBalls();
 			return;
@@ -522,12 +533,13 @@ The user moves a cube around the board trying to knock balls into a cone
 			break;
 
 			case "youwon":
-				//endText.rotateY(0.005);
-				renderer.render( endScenewin, endCamerawin);
+				endText.rotateY(0.005);
+				renderer.render( endScene, endCamera);
 				break;
 
 			case "gameover":
-				renderer.render(endScenelose, endCameralose);
+			  loseText.rotateY(0.005);
+				renderer.render(loseScene, loseCamera);
 				break;
 
 			case "main":
