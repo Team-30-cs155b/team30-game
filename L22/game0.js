@@ -30,7 +30,7 @@ The user moves a cube around the board trying to knock balls into a cone
 		    camera:camera}
 
 	var gameState =
-	     {score:0, health:10, scene:'main', camera:'none' }
+	     {score:0, health:3, scene:'main', camera:'none' }
 
 
 	// Here is the main game control
@@ -137,15 +137,14 @@ The user moves a cube around the board trying to knock balls into a cone
 			npc.position.set(30,5,-30);
       npc.addEventListener('collision',function(other_object){
         if (other_object==avatar){
-<<<<<<< HEAD
-          gameState.scene = 'gameover';
-=======
 					gameState.health --;
 					npc.__dirtyPosition = true;
 					npc.position.set(Math.floor((Math.random() * 30) + 1),5,Math.floor((Math.random() * 30 ) + 1));
 					console.log(npc.position);
->>>>>>> Cliffe
         }
+				if(gameState.health == 0){
+					gameState.scene = 'gameover';
+				}
       })
 			scene.add(npc);
 
