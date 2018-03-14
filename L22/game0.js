@@ -17,6 +17,7 @@ The user moves a cube around the board trying to knock balls into a cone
 	var cone;
 	var npc;
 
+	var startScene, startCamera, startText;
 	var endScene, endCamera, endText;
 
 
@@ -39,6 +40,17 @@ The user moves a cube around the board trying to knock balls into a cone
 
 
 
+	function createStartScene(){
+    startScene = initScene();
+    startText = createSkyBox('start.png', 2);
+    startScene.add(startText);
+    var lightS = createPointLight();
+    lightS.position.set(0,200,20);
+    startScene.add(lightS);
+    startCamera = new THREE.PerspectiveCamera( 90, window.innerWidth / window.innerHeight, 0.1, 1000 );
+    startCamera.position.set(0,50,1);
+    startCamera.lookAt(0,0,0);
+  }
 
 	function createEndScene(){
 		endScenewin = initScene();
@@ -70,6 +82,7 @@ The user moves a cube around the board trying to knock balls into a cone
 	function init(){
       initPhysijs();
 			scene = initScene();
+			createStartScene();
 			createEndScene();
 			initRenderer();
 			createMainScene();
@@ -89,7 +102,7 @@ The user moves a cube around the board trying to knock balls into a cone
 			camera.position.set(0,50,0);
 			camera.lookAt(0,0,0);
 
-
+			gameState.scene = 'start';
 
 			// create the ground and the skybox
 			var ground = createGround('grass.png');
@@ -391,6 +404,15 @@ The user moves a cube around the board trying to knock balls into a cone
 	function keydown(event){
     console.dir(event);
 		console.log("Keydown: '"+event.key+"'");
+
+
+		if (gameState.scene == 'start' && event.key =='p') {
+			gameState.scene = 'main';
+			gameState.score = 0;
+			addBalls();
+			return;
+		}
+
 		//console.dir(event);
 		// first we handle the "play again" key in the "youwon" scene
 		if (gameState.scene == 'youwon' && event.key=='r') {
@@ -408,6 +430,7 @@ The user moves a cube around the board trying to knock balls into a cone
 			case "a": controls.left = true; break;
 			case "d": controls.right = true; break;
 			case "r": controls.up = true; break;
+			case "p": controls.up = true; break;
 			case "f": controls.down = true; break;
 			case "m": controls.speed = 30; break;
       case " ": controls.fly = true;
@@ -440,6 +463,7 @@ The user moves a cube around the board trying to knock balls into a cone
 			case "a": controls.left  = false; break;
 			case "d": controls.right = false; break;
 			case "r": controls.up    = false; break;
+			case "p": controls.up    = false; break;
 			case "f": controls.down  = false; break;
 			case "m": controls.speed = 10; break;
       case " ": controls.fly = false; break;
@@ -492,6 +516,10 @@ The user moves a cube around the board trying to knock balls into a cone
 		requestAnimationFrame( animate );
 
 		switch(gameState.scene) {
+			case "start":
+				startText.rotateY(0.005);
+				renderer.render( startScene, startCamera );
+			break;
 
 			case "youwon":
 				//endText.rotateY(0.005);
