@@ -141,10 +141,6 @@ The user moves a cube around the board trying to knock balls into a cone
 					}
 					scene.remove(this);
 				}
-				else if (other_object == cone){
-					gameState.health += 10;
-				}
-			}
 		)
 
 		for(i = 0; i < numYBalls; i++) {
@@ -162,9 +158,6 @@ The user moves a cube around the board trying to knock balls into a cone
 						}
             scene.remove(this);
 					}
-          else if (other_object == cone){
-            gameState.health ++;
-          }
 				}
 			)
 		}
@@ -184,9 +177,6 @@ The user moves a cube around the board trying to knock balls into a cone
 						}
             scene.remove(this);
 					}
-          else if (other_object == cone){
-            gameState.health += 2;
-          }
 				}
 			)
 		}
@@ -275,7 +265,6 @@ The user moves a cube around the board trying to knock balls into a cone
 		var geometry = new THREE.BoxGeometry( 1, 1, 1);
 		var material = new THREE.MeshLambertMaterial( { color: color} );
 		mesh = new Physijs.BoxMesh( geometry, material );
-    //mesh = new Physijs.BoxMesh( geometry, material,0 );
 		mesh.castShadow = true;
 		return mesh;
 	}
