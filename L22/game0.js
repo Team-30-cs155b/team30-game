@@ -40,6 +40,7 @@ The user moves a cube around the board trying to knock balls into a cone
 	function createStartScene(){
     startScene = initScene();
     startText = createSkyBox('start.png', 2);
+		//avatar = createAvatar();
     startScene.add(startText);
     var lightS = createPointLight();
     lightS.position.set(0,200,20);
@@ -105,6 +106,7 @@ The user moves a cube around the board trying to knock balls into a cone
 
 			gameState.scene = 'start';
 
+
 			// create the ground and the skybox
 			var ground = createGround('grass.png');
 			scene.add(ground);
@@ -127,6 +129,13 @@ The user moves a cube around the board trying to knock balls into a cone
 			cone = createConeMesh(4,6);
 			cone.position.set(10,3,7);
 			scene.add(cone);
+			cone.addEventListener('collision',function(other_object){
+				if (other_object==avatar){
+					gameState.health ++;
+					soundEffect('good.wav');
+					console.log("hits the cone, health increases by 1");
+				}
+			})
 
 			npc = createBoxMesh2(0x0000ff,1,2,4);
 			npc.position.set(30,5,-30);
@@ -147,8 +156,22 @@ The user moves a cube around the board trying to knock balls into a cone
 			scene.add(npc);
 
       var wall = createWall(0xffaa00,50,3,1);
-      wall.position.set(10,0,10);
+      wall.position.set(10,0,20);
       scene.add(wall);
+<<<<<<< HEAD
+=======
+			wall.addEventListener('collision',function(other_object){
+				if (other_object==avatar){
+					soundEffect('bad.wav');
+					gameState.health --;
+				}
+				if(gameState.health == 0){
+					gameState.scene = 'gameover';
+				}
+			})
+			//console.dir(npc);
+			//playGameMusic();
+>>>>>>> Yaxin
 
 	}
 
@@ -199,9 +222,6 @@ The user moves a cube around the board trying to knock balls into a cone
 						}
             scene.remove(this);
 					}
-          else if (other_object == cone){
-            gameState.health ++;
-          }
 				}
 			)
 		}
@@ -462,6 +482,7 @@ The user moves a cube around the board trying to knock balls into a cone
 		if (gameState.scene == 'start' && event.key =='p') {
 			gameState.scene = 'main';
 			gameState.score = 0;
+			gameState.health = 3;
 			addBalls();
 			return;
 		}
@@ -471,6 +492,7 @@ The user moves a cube around the board trying to knock balls into a cone
 		if (gameState.scene == 'youwon' && event.key=='r') {
 			gameState.scene = 'start';
 			gameState.score = 0;
+			gameState.health = 3;
 			addBalls();
 			return;
 		}
@@ -478,6 +500,7 @@ The user moves a cube around the board trying to knock balls into a cone
 		if (gameState.scene == 'gameover' && event.key=='r') {
 			gameState.scene = 'start';
 			gameState.score = 0;
+			gameState.health = 3;
 			addBalls();
 			return;
 		}
@@ -624,7 +647,7 @@ The user moves a cube around the board trying to knock balls into a cone
 	  var info = document.getElementById("info");
 		info.innerHTML='<div style="font-size:24pt">Score: '
     + gameState.score
-    + " health="+gameState.health
+    + " Health="+gameState.health
     + '</div>';
 
 	}
