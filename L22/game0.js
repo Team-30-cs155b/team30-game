@@ -1,4 +1,3 @@
-
 /*
 Game 0
 This is a ThreeJS program which implements a simple game
@@ -11,9 +10,6 @@ The user moves a cube around the board trying to knock balls into a cone
 	// in the animation code
 	var scene, renderer;  // all threejs programs need these
 	var camera, avatarCam, edgeCam;  // we have two cameras in the main scene
-	var avatar;
-	// here are some mesh objects ...
-
 	var cone;
 	var npc;
 
@@ -118,11 +114,7 @@ The user moves a cube around the board trying to knock balls into a cone
 
 			// create the avatar
 			avatarCam = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 0.1, 1000 );
-			avatar = createAvatar();
-			avatar.translateY(20);
 			avatarCam.translateY(-4);
-			avatarCam.translateZ(3);
-			scene.add(avatar);
 			gameState.camera = avatarCam;
 
       edgeCam = new THREE.PerspectiveCamera( 120, window.innerWidth / window.innerHeight, 0.1, 1000 );
@@ -145,7 +137,11 @@ The user moves a cube around the board trying to knock balls into a cone
 			npc = createBoxMesh2(0x0000ff,1,2,4);
 			npc.position.set(30,5,-30);
       npc.addEventListener('collision',function(other_object){
-        if (other_object==avatar){
+        // if (other_object==avatar){
+				// 	gameState.health --;
+				// 	npc.__dirtyPosition = true;
+				// 	npc.position.set(Math.floor((Math.random() * 30) + 1),5,Math.floor((Math.random() * 30 ) + 1));
+				// 	console.log(npc.position);
 					gameState.health --;
 					npc.__dirtyPosition = true;
 					npc.position.set(Math.floor((Math.random() * 30) + 1),5,Math.floor((Math.random() * 30 ) + 1));
@@ -183,22 +179,16 @@ The user moves a cube around the board trying to knock balls into a cone
 
 
 	function addBalls(){
-		var numBalls = 20;
+		var goal = 20;
 
-
-		for(i=0;i<numBalls;i++){
-			var ball = createBall();
-			ball.position.set(randN(20)+15,30,randN(20)+15);
+		for(i = 0; i < numYBalls; i++) {
 			scene.add(ball);
-
 			ball.addEventListener( 'collision',
 				function( other_object, relative_velocity, relative_rotation, contact_normal ) {
-					if (other_object==avatar){
-						console.log("ball "+i+" hit the cone");
+					if (other_object == suzanne){
 						soundEffect('good.wav');
 						gameState.score += 1;  // add one to the score
-						if (gameState.score==numBalls) {
-							gameState.scene='youwon';
+						if (gameState.score == goal) {
 						}
             //scene.remove(ball);  // this isn't working ...
 						// make the ball drop below the scene ..
@@ -209,6 +199,16 @@ The user moves a cube around the board trying to knock balls into a cone
 				}
 			)
 		}
+						soundEffect('good.wav');
+						gameState.score += 2;  // add one to the score
+						if (gameState.score == goal) {
+							gameState.scene = 'youwon';
+						}
+            scene.remove(this);
+          else if (other_object == cone){
+			)
+		}
+
 	}
 
 
@@ -329,12 +329,9 @@ The user moves a cube around the board trying to knock balls into a cone
 		var pmaterial = new Physijs.createMaterial(material,0.9,0.05);
 		//var mesh = new THREE.Mesh( geometry, material );
 		var mesh = new Physijs.BoxMesh( geometry, pmaterial, 0 );
-
 		mesh.receiveShadow = true;
-
 		mesh.rotateX(Math.PI/2);
-		return mesh
-		// we need to rotate the mesh 90 degrees to make it horizontal not vertical
+		return mesh;
 	}
 
 
@@ -350,38 +347,14 @@ The user moves a cube around the board trying to knock balls into a cone
 		//var pmaterial = new Physijs.createMaterial(material,0.9,0.5);
 		//var mesh = new THREE.Mesh( geometry, material );
 		var mesh = new THREE.Mesh( geometry, material, 0 );
-
 		mesh.receiveShadow = false;
-
-
 		return mesh
 		// we need to rotate the mesh 90 degrees to make it horizontal not vertical
 
 
 	}
 
-	function createAvatar(){
-		//var geometry = new THREE.SphereGeometry( 4, 20, 20);
-		var geometry = new THREE.BoxGeometry( 5, 5, 6);
-		var material = new THREE.MeshLambertMaterial( { color: 0xffff00} );
-		var pmaterial = new Physijs.createMaterial(material,0.9,0.5);
-		//var mesh = new THREE.Mesh( geometry, material );
-		var mesh = new Physijs.BoxMesh( geometry, pmaterial );
-		mesh.setDamping(0.1,0.1);
-		mesh.castShadow = true;
-
-		avatarCam.position.set(0,4,0);
-		avatarCam.lookAt(0,4,10);
-		mesh.add(avatarCam);
-
-  /*
-    var scoop1 = createBoxMesh2(0xff0000,10,1,0.1);
-		scoop1.position.set(0,-2,5);
-		mesh.add(scoop1);
-    */
-
-		return mesh;
-	}
+	function initSuzanne() {
 
 
 	function createConeMesh(r,h){
@@ -398,10 +371,7 @@ The user moves a cube around the board trying to knock balls into a cone
 	}
 
 
-	function createBall(){
-		//var geometry = new THREE.SphereGeometry( 4, 20, 20);
-		var geometry = new THREE.SphereGeometry( 1, 16, 16);
-		var material = new THREE.MeshLambertMaterial( { color: 0xffff00} );
+	function createBall(m, c){
 		var pmaterial = new Physijs.createMaterial(material,0.9,0.95);
     var mesh = new Physijs.BoxMesh( geometry, pmaterial );
 		mesh.setDamping(0.1,0.1);
@@ -409,8 +379,7 @@ The user moves a cube around the board trying to knock balls into a cone
 		return mesh;
 	}
 
-
-
+	function createSPBall(){
 
 
 	var clock;
@@ -507,8 +476,8 @@ The user moves a cube around the board trying to knock balls into a cone
 	}
 
 	function updateNPC(){
-		npc.lookAt(avatar.position);
-		if (npc.position.distanceTo(avatar.position)> 20){
+		npc.lookAt(suzanne.position);
+		if (npc.position.distanceTo(suzanne.position)> 20){
 				npc.setLinearVelocity(npc.getWorldDirection().multiplyScalar(-0.5));
 		}else{
    		 npc.__dirtyPosition = true;
@@ -519,36 +488,40 @@ The user moves a cube around the board trying to knock balls into a cone
   function updateAvatar(){
 		"change the avatar's linear or angular velocity based on controls state (set by WSAD key presses)"
 
-		var forward = avatar.getWorldDirection();
 
 		if (controls.fwd){
-			avatar.setLinearVelocity(forward.multiplyScalar(controls.speed));
+			suzanne.setLinearVelocity(forward.multiplyScalar(controls.speed));
 		} else if (controls.bwd){
-			avatar.setLinearVelocity(forward.multiplyScalar(-controls.speed));
+			suzanne.setLinearVelocity(forward.multiplyScalar(-controls.speed));
 		} else {
-			var velocity = avatar.getLinearVelocity();
-			velocity.x=velocity.z=0;
-			avatar.setLinearVelocity(velocity); //stop the xz motion
+			velocity.x = velocity.z = 0;
+			suzanne.setLinearVelocity(velocity); //stop the xz motion
 		}
 
     if (controls.fly){
-      avatar.setLinearVelocity(new THREE.Vector3(0,controls.speed,0));
+      suzanne.setLinearVelocity(new THREE.Vector3(0,controls.speed,0));
     }
 
 		if (controls.left){
-			avatar.setAngularVelocity(new THREE.Vector3(0,controls.speed*0.1,0));
+			suzanne.setAngularVelocity(new THREE.Vector3(0, controls.speed * 0.3, 0));
 		} else if (controls.right){
-			avatar.setAngularVelocity(new THREE.Vector3(0,-controls.speed*0.1,0));
 		}
 
     if (controls.reset){
-      avatar.__dirtyPosition = true;
       avatar.position.set(40,10,40);
+      suzanne.__dirtyPosition = true;
+      suzanne.position.set(40,10,40);
     }
 
 	}
 
 
+	function tilt() {
+		if (suzanne.rotation.x > min && suzanne.rotation.x < max ||
+				suzanne.rotation.x < -min && suzanne.rotation.x > -max ||
+				suzanne.rotation.z > min && suzanne.rotation.z < max ||
+				suzanne.rotation.z < -min && suzanne.rotation.z > -max ) {
+			 suzanne.rotation.x = -max;
 
 	function animate() {
 
@@ -574,6 +547,8 @@ The user moves a cube around the board trying to knock balls into a cone
 				updateAvatar();
 				updateNPC();
         edgeCam.lookAt(avatar.position);
+				tilt();
+        edgeCam.lookAt(suzanne.position);
 	    	scene.simulate();
 				if (gameState.camera!= 'none'){
 					renderer.render( scene, gameState.camera );
@@ -586,6 +561,7 @@ The user moves a cube around the board trying to knock balls into a cone
 		}
 
 		//draw heads up display ..
+
 	  var info = document.getElementById("info");
 		info.innerHTML='<div style="font-size:24pt">Score: '
     + gameState.score
