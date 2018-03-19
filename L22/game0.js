@@ -128,7 +128,7 @@ The user moves a cube around the board trying to knock balls into a cone
 		var numYBalls = 15;
 		var numBBalls = 5;
 		var spBall = createSPBall();
-		spBall.position.set(randN(80),30,randN(80);
+		spBall.position.set(randN(80),30,randN(80));
 		scene.add(spBall);
 		spBall.addEventListener( 'collision',
 			function( other_object, relative_velocity, relative_rotation, contact_normal ) {
