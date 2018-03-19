@@ -158,8 +158,6 @@ The user moves a cube around the board trying to knock balls into a cone
       var wall = createWall(0xffaa00,50,3,1);
       wall.position.set(10,0,20);
       scene.add(wall);
-<<<<<<< HEAD
-=======
 			wall.addEventListener('collision',function(other_object){
 				if (other_object==avatar){
 					soundEffect('bad.wav');
@@ -171,7 +169,6 @@ The user moves a cube around the board trying to knock balls into a cone
 			})
 			//console.dir(npc);
 			//playGameMusic();
->>>>>>> Yaxin
 
 	}
 
