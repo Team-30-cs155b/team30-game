@@ -154,7 +154,7 @@ The user moves a cube around the board trying to knock balls into a cone
 			ball.addEventListener( 'collision',
 				function( other_object, relative_velocity, relative_rotation, contact_normal ) {
 					if (other_object == suzanne){
-						console.log("ball " + i + " hit the cone");
+						console.log("You " + i + " hit a yellow ball");
 						soundEffect('good.wav');
 						gameState.score += 1;  // add one to the score
 						if (gameState.score == goal) {
@@ -176,7 +176,7 @@ The user moves a cube around the board trying to knock balls into a cone
 			ball.addEventListener( 'collision',
 				function( other_object, relative_velocity, relative_rotation, contact_normal ) {
 					if (other_object == suzanne){
-						console.log("ball " + i + " hit the cone");
+						console.log("You " + i + " hit a blue ball");
 						soundEffect('good.wav');
 						gameState.score += 2;  // add one to the score
 						if (gameState.score == goal) {
