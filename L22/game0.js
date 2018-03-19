@@ -147,7 +147,7 @@ The user moves a cube around the board trying to knock balls into a cone
 				// 	console.log(npc.position);
         // }
 				if(other_object == suzanne){
-					gameState.scene = 'youwon';
+					gameState.health --;
 				}
 				if(gameState.health == 0){
 					gameState.scene = 'gameover';
@@ -159,7 +159,7 @@ The user moves a cube around the board trying to knock balls into a cone
       wall.position.set(10,0,20);
       scene.add(wall);
 			wall.addEventListener('collision',function(other_object){
-				if (other_object==avatar){
+				if (other_object==suzanne){
 					soundEffect('bad.wav');
 					gameState.health --;
 				}
@@ -185,7 +185,7 @@ The user moves a cube around the board trying to knock balls into a cone
 		var numYBalls = 15;
 		var numBBalls = 5;
 		var spBall = createSPBall();
-		ball.position.set(randN(80),30,randN(80));
+		spBall.position.set(randN(80),30,randN(80));
 		scene.add(spBall);
 		spBall.addEventListener( 'collision',
 			function( other_object, relative_velocity, relative_rotation, contact_normal ) {
@@ -214,7 +214,7 @@ The user moves a cube around the board trying to knock balls into a cone
 						console.log("ball " + i + " hit the cone");
 						soundEffect('good.wav');
 						gameState.score += 1;  // add one to the score
-						if (gameState.score == goal) {
+						if (gameState.score == numBalls) {
 							gameState.scene = 'youwon';
 						}
             scene.remove(this);
@@ -551,7 +551,7 @@ The user moves a cube around the board trying to knock balls into a cone
 		}
 	}
 
-	function updateNPC(){
+	function update(){
 		npc.lookAt(suzanne.position);
 	  //npc.__dirtyPosition = true;
 		npc.setLinearVelocity(npc.getWorldDirection().multiplyScalar(-0.5));
