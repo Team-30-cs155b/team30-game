@@ -427,7 +427,7 @@ The user moves a cube around the board trying to knock balls into a cone
 	}
 
 	function createSPBall(){
-		var params = { opacity: 0.25 };
+		var params = { opacity: 0.15 };
 		var geometry = new THREE.SphereGeometry(0.2, 16, 16);
 		var material = new THREE.MeshLambertMaterial( {opacity: params.opacity, transparent: true} );
 		var pmaterial = new Physijs.createMaterial(material,0.9,0.95);
