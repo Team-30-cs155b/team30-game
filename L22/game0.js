@@ -420,13 +420,14 @@ The user moves a cube around the board trying to knock balls into a cone
 		var geometry = new THREE.SphereGeometry(m, 16, 16);
 		var material = new THREE.MeshLambertMaterial( { color: c} );
 		var pmaterial = new Physijs.createMaterial(material,0.9,0.95);
-    var mesh = new Physijs.BoxMesh( geometry, pmaterial );
+    		var mesh = new Physijs.BoxMesh( geometry, pmaterial );
 		mesh.setDamping(0.1,0.1);
 		mesh.castShadow = true;
 		return mesh;
 	}
 
 	function createSPBall(){
+		var params = { opacity: 0.25 };
 		var geometry = new THREE.SphereGeometry(0.25, 16, 16);
 		var material = new THREE.MeshStandardMaterial( {opacity: params.opacity, transparent: true} );
 		var pmaterial = new Physijs.createMaterial(material,0.9,0.95);
