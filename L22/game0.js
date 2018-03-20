@@ -113,13 +113,14 @@ The user moves a cube around the board trying to knock balls into a cone
 
 			// create the avatar
 			avatarCam = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 0.1, 1000 );
+			material.envMap.mapping = THREE.CubeRefractionMapping;
 			initSuzanne();
 			avatarCam.translateY(-4);
 			avatarCam.translateZ(4);
 			gameState.camera = avatarCam;
 
-      edgeCam = new THREE.PerspectiveCamera( 120, window.innerWidth / window.innerHeight, 0.1, 1000 );
-      edgeCam.position.set(20,20,10);
+      			edgeCam = new THREE.PerspectiveCamera( 120, window.innerWidth / window.innerHeight, 0.1, 1000 );
+      			edgeCam.position.set(20,20,10);
 
 
 			addBalls();
@@ -427,10 +428,10 @@ The user moves a cube around the board trying to knock balls into a cone
 	}
 
 	function createSPBall(){
-		var geometry = new THREE.SphereGeometry(0.5, 16, 16);
+		var geometry = new THREE.SphereGeometry(0.25, 16, 16);
 		var material = new THREE.MeshBasicMaterial( { color: 0xffffff, envMap: scene.background, refractionRatio: 0.95 } );
 		var pmaterial = new Physijs.createMaterial(material,0.9,0.95);
-    var mesh = new Physijs.BoxMesh( geometry, pmaterial );
+    		var mesh = new Physijs.BoxMesh( geometry, pmaterial );
 		mesh.setDamping(0.1,0.1);
 		mesh.castShadow = true;
 		return mesh;
