@@ -428,8 +428,7 @@ The user moves a cube around the board trying to knock balls into a cone
 
 	function createSPBall(){
 		var geometry = new THREE.SphereGeometry(0.25, 16, 16);
-		var material = new THREE.MeshBasicMaterial( { color: 0xffffff, envMap: scene.background, refractionRatio: 0.95 } );
-		material.envMap.mapping = THREE.CubeRefractionMapping;
+		var material = new THREE.MeshStandardMaterial( {opacity: params.opacity, transparent: true} );
 		var pmaterial = new Physijs.createMaterial(material,0.9,0.95);
     		var mesh = new Physijs.BoxMesh( geometry, pmaterial );
 		mesh.setDamping(0.1,0.1);
