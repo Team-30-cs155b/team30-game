@@ -4,8 +4,6 @@ This is a ThreeJS program which implements a simple game
 The user moves a cube around the board trying to knock balls into a cone
 
 */
-
-
 // First we declare the variables that hold the objects we need
 // in the animation code
 var scene, renderer;  // all threejs programs need these
@@ -18,9 +16,6 @@ var startScene, startCamera, startText;
 var endScene, endCamera, endText;
 var loseScene,loseCamera, loseText;
 
-
-
-
 var controls =
      {fwd:false, bwd:false, left:false, right:false,
 			speed:10, fly:false, reset:false,
@@ -28,14 +23,11 @@ var controls =
 
 var gameState =
      {score:0, health:3, scene:'main', camera:'none' }
-
-
+     
 // Here is the main game control
 init(); //
 initControls();
 animate();  // start the animation loop!
-
-
 
 function createStartScene(){
 	startScene = initScene();
@@ -90,89 +82,87 @@ function init(){
 		createMainScene();
 }
 
-
 function createMainScene(){
-  // setup lighting
-		var light1 = createPointLight();
-		light1.position.set(0,200,20);
-		scene.add(light1);
-		var light0 = new THREE.AmbientLight( 0xffffff,0.25);
-		scene.add(light0);
-
-		// create main camera
-		camera = new THREE.PerspectiveCamera( 90, window.innerWidth / window.innerHeight, 0.1, 1000 );
-		camera.position.set(0,50,0);
-		camera.lookAt(0,0,0);
-
-		gameState.scene = 'start';
-
-
-		// create the ground and the skybox
-		var ground = createGround('grass.png');
-		scene.add(ground);
-		var skybox = createSkyBox('sky.jpg',1);
-		scene.add(skybox);
-
-		// create the avatar
-		avatarCam = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 0.1, 1000 );
-		initSuzanne();
-		avatarCam.translateY(-4);
-		avatarCam.translateZ(4);
-		gameState.camera = avatarCam;
-
-  edgeCam = new THREE.PerspectiveCamera( 120, window.innerWidth / window.innerHeight, 0.1, 1000 );
-  edgeCam.position.set(20,20,10);
-
-
-		addBalls();
-
-		cone = createConeMesh(4,6);
-		cone.position.set(10,3,7);
-		scene.add(cone);
-		cone.addEventListener('collision',function(other_object){
-			if (other_object==suzanne){
-				gameState.health ++;
-				soundEffect('good.wav');
-				console.log("hits the cone, health increases by 1");
-			}
-		})
-
-		npc = createBoxMesh2(0x0000ff,1,2,4);
-		npc.position.set(30,5,-30);
-  npc.addEventListener('collision',function(other_object){
-    // if (other_object==avatar){
-			// 	gameState.health --;
-			// 	npc.__dirtyPosition = true;
-			// 	npc.position.set(Math.floor((Math.random() * 30) + 1),5,Math.floor((Math.random() * 30 ) + 1));
-			// 	console.log(npc.position);
-    // }
-			if(other_object == suzanne){
-				gameState.health --;
-				npc.__dirtyPosition = true;
-				npc.position.set(Math.floor((Math.random() * 30) + 1),5,Math.floor((Math.random() * 30 ) + 1));
-				console.log(npc.position);
-			}
-			if(gameState.health == 0){
-				gameState.scene = 'gameover';
-			}
-  })
-		scene.add(npc);
-
-  var wall = createWall(0xffaa00,50,3,1);
-  wall.position.set(10,0,20);
-  scene.add(wall);
-		wall.addEventListener('collision',function(other_object){
-			if (other_object==suzanne){
-				soundEffect('bad.wav');
-				gameState.health --;
-			}
-			if(gameState.health == 0){
-				gameState.scene = 'gameover';
-			}
-		})
-		//console.dir(npc);
-		//playGameMusic();
-
+	// setup lighting
+	var light1 = createPointLight();
+	light1.position.set(0,200,20);
+	scene.add(light1);
+	var light0 = new THREE.AmbientLight( 0xffffff,0.25);
+	scene.add(light0);
+	
+	// create main camera
+	camera = new THREE.PerspectiveCamera( 90, window.innerWidth / window.innerHeight, 0.1, 1000 );
+	camera.position.set(0,50,0);
+	camera.lookAt(0,0,0);
+	
+	gameState.scene = 'start';
+	
+	
+	// create the ground and the skybox
+	var ground = createGround('grass.png');
+	scene.add(ground);
+	var skybox = createSkyBox('sky.jpg',1);
+	scene.add(skybox);
+	
+	// create the avatar
+	avatarCam = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 0.1, 1000 );
+	initSuzanne();
+	avatarCam.translateY(-4);
+	avatarCam.translateZ(4);
+	gameState.camera = avatarCam;
+	
+	edgeCam = new THREE.PerspectiveCamera( 120, window.innerWidth / window.innerHeight, 0.1, 1000 );
+	edgeCam.position.set(20,20,10);
+	
+	
+	addBalls();
+	
+	cone = createConeMesh(4,6);
+	cone.position.set(10,3,7);
+	scene.add(cone);
+	cone.addEventListener('collision',function(other_object){
+		if (other_object==suzanne){
+			gameState.health ++;
+			soundEffect('good.wav');
+			console.log("hits the cone, health increases by 1");
+		}
+	})
+	
+	npc = createBoxMesh2(0x0000ff,1,2,4);
+	npc.position.set(30,5,-30);
+	npc.addEventListener('collision',function(other_object){
+	// if (other_object==avatar){
+		// 	gameState.health --;
+		// 	npc.__dirtyPosition = true;
+		// 	npc.position.set(Math.floor((Math.random() * 30) + 1),5,Math.floor((Math.random() * 30 ) + 1));
+		// 	console.log(npc.position);
+	// }
+		if(other_object == suzanne){
+			gameState.health --;
+			npc.__dirtyPosition = true;
+			npc.position.set(Math.floor((Math.random() * 30) + 1),5,Math.floor((Math.random() * 30 ) + 1));
+			console.log(npc.position);
+		}
+		if(gameState.health == 0){
+			gameState.scene = 'gameover';
+		}
+	})
+	scene.add(npc);
+	
+	var wall = createWall(0xffaa00,50,3,1);
+	wall.position.set(10,0,20);
+	scene.add(wall);
+	wall.addEventListener('collision',function(other_object){
+		if (other_object==suzanne){
+			soundEffect('bad.wav');
+			gameState.health --;
+		}
+		if(gameState.health == 0){
+			gameState.scene = 'gameover';
+		}
+	})
+	//console.dir(npc);
+	//playGameMusic();
 }
 
 function randN(n){
@@ -237,18 +227,15 @@ function addBalls(){
 					if (gameState.score == goal) {
 						gameState.scene = 'youwon';
 					}
-        scene.remove(this);
+	                scene.remove(this);
 				}
-      else if (other_object == cone){
-        gameState.health += 2;
-      }
+				else if (other_object == cone){
+					gameState.health += 2;
+				}
 			}
 		)
 	}
-
 }
-
-
 
 function playGameMusic(){
 	// create an AudioListener and add it to the camera
@@ -290,13 +277,13 @@ function soundEffect(file){
 */
 function initScene(){
 	//scene = new THREE.Scene();
-var scene = new Physijs.Scene();
+	var scene = new Physijs.Scene();
 	return scene;
 }
 
 function initPhysijs(){
-Physijs.scripts.worker = '../js/physijs_worker.js';
-Physijs.scripts.ammo = '../js/ammo.js';
+	Physijs.scripts.worker = '../js/physijs_worker.js';
+	Physijs.scripts.ammo = '../js/ammo.js';
 }
 /*
 	The renderer needs a size and the actual canvas we draw on
@@ -311,7 +298,6 @@ function initRenderer(){
 	renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 }
 
-
 function createPointLight(){
 	var light;
 	light = new THREE.PointLight( 0xffffff);
@@ -324,13 +310,11 @@ function createPointLight(){
 	return light;
 }
 
-
-
 function createBoxMesh(color){
 	var geometry = new THREE.BoxGeometry( 1, 1, 1);
 	var material = new THREE.MeshLambertMaterial( { color: color} );
 	mesh = new Physijs.BoxMesh( geometry, material );
-//mesh = new Physijs.BoxMesh( geometry, material,0 );
+	//mesh = new Physijs.BoxMesh( geometry, material,0 );
 	mesh.castShadow = true;
 	return mesh;
 }
@@ -353,8 +337,6 @@ function createWall(color,w,h,d){
 	return mesh;
 }
 
-
-
 function createGround(image){
 	// creating a textured plane which receives shadows
 	var geometry = new THREE.PlaneGeometry( 180, 180, 128 );
@@ -370,8 +352,6 @@ function createGround(image){
 	mesh.rotateX(Math.PI/2);
 	return mesh;
 }
-
-
 
 function createSkyBox(image,k){
 	// creating a textured plane which receives shadows
@@ -405,42 +385,40 @@ function createPlane(image,k){
 	mesh.receiveShadow = false;
 	return mesh;
 	// we need to rotate the mesh 90 degrees to make it horizontal not vertical
-
-
 }
 
 function initSuzanne() {
 	var loader = new THREE.JSONLoader();
 	loader.load("../models/suzanne.json",
-				function ( geometry, materials ) {
-					console.log("loading suzanne");
-					var material = new THREE.MeshLambertMaterial( { color: 0xffffcc } );
-					var pmaterial = new Physijs.createMaterial(material, 0.9, 0.5);
-					suzanne = new Physijs.BoxMesh( geometry, pmaterial );
-					console.log("created suzanne mesh");
-					console.log(JSON.stringify(suzanne.scale));
-					scene.add(suzanne);
-					var s = 1;
-					suzanne.scale.y = s;
-					suzanne.scale.x = s;
-					suzanne.scale.z = s;
-					suzanne.position.z = -5;
-					suzanne.position.y = 3;
-					suzanne.position.x = -5;
-					suzanne.castShadow = true;
-					scene.add(suzanne);
-					avatarCam.position.set(0,2,-5);
-					avatarCam.lookAt(0,2,10);
-					suzanne.add(avatarCam);
-				},
-				function(xhr) {
-					console.log( (xhr.loaded / xhr.total * 100) + '% loaded' );},
-				function(err){console.log("error in loading: " + err);}
-			)
-			avatarCam.position.set(0,4,-1);
-			avatarCam.lookAt(0,4,10);
-	}
-
+		function ( geometry, materials ) {
+			console.log("loading suzanne");
+			var material = new THREE.MeshLambertMaterial( { color: 0xffffcc } );
+			var pmaterial = new Physijs.createMaterial(material, 0.9, 0.5);
+			suzanne = new Physijs.BoxMesh( geometry, pmaterial );
+			console.log("created suzanne mesh");
+			console.log(JSON.stringify(suzanne.scale));
+			scene.add(suzanne);
+			var s = 1;
+			suzanne.scale.y = s;
+			suzanne.scale.x = s;
+			suzanne.scale.z = s;
+			suzanne.position.z = -5;
+			suzanne.position.y = 3;
+			suzanne.position.x = -5;
+			suzanne.castShadow = true;
+			scene.add(suzanne);
+			avatarCam.position.set(0,2,-5);
+			avatarCam.lookAt(0,2,10);
+			suzanne.add(avatarCam);
+		},
+		function(xhr) {
+			console.log( (xhr.loaded / xhr.total * 100) + '% loaded' );
+		},
+		function(err){console.log("error in loading: " + err);}
+	)
+	avatarCam.position.set(0,4,-1);
+	avatarCam.lookAt(0,4,10);
+}
 
 function createConeMesh(r,h){
 	var geometry = new THREE.ConeGeometry( r, h, 32);
@@ -454,7 +432,6 @@ function createConeMesh(r,h){
 	mesh.castShadow = true;
 	return mesh;
 }
-
 
 function createBall(m, c){
 	var geometry = new THREE.SphereGeometry(m, 16, 16);
@@ -470,31 +447,29 @@ function createSPBall(){
 	var geometry = new THREE.SphereGeometry(0.1, 16, 16);
 	var material = new THREE.MeshBasicMaterial( { color: 0xffffff, envMap: scene.background, refractionRatio: 0.95 } );
 	var pmaterial = new Physijs.createMaterial(material,0.9,0.95);
-var mesh = new Physijs.BoxMesh( geometry, pmaterial );
+	var mesh = new Physijs.BoxMesh( geometry, pmaterial );
 	mesh.setDamping(0.1,0.1);
 	mesh.castShadow = true;
 	return mesh;
 }
 
-
 var clock;
 
 function initControls(){
 	// here is where we create the eventListeners to respond to operations
-
-	  //create a clock for the time-based animation ...
-		clock = new THREE.Clock();
-		clock.start();
-
-		window.addEventListener( 'keydown', keydown);
-		window.addEventListener( 'keyup',   keyup );
+	//create a clock for the time-based animation ...
+	clock = new THREE.Clock();
+	clock.start();
+	
+	window.addEventListener( 'keydown', keydown);
+	window.addEventListener( 'keyup',   keyup );
 }
 
 function keydown(event){
-console.dir(event);
+	console.dir(event);
 	console.log("Keydown: '"+event.key+"'");
-
-
+	
+	
 	if (gameState.scene == 'start' && event.key =='p') {
 		gameState.scene = 'main';
 		gameState.score = 0;
@@ -502,7 +477,7 @@ console.dir(event);
 		addBalls();
 		return;
 	}
-
+	
 	//console.dir(event);
 	// first we handle the "play again" key in the "youwon" scene
 	if (gameState.scene == 'youwon' && event.key=='r') {
@@ -512,7 +487,7 @@ console.dir(event);
 		addBalls();
 		return;
 	}
-
+	
 	if (gameState.scene == 'gameover' && event.key=='r') {
 		gameState.scene = 'start';
 		gameState.score = 0;
@@ -520,7 +495,7 @@ console.dir(event);
 		addBalls();
 		return;
 	}
-
+	
 	// this is the regular scene
 	switch (event.key){
 		// change the way the avatar is moving
@@ -532,25 +507,24 @@ console.dir(event);
 		case "p": controls.up = true; break;
 		case "f": controls.down = true; break;
 		case "m": controls.speed = 30; break;
-  case " ": controls.fly = true;
-      console.log("space!!");
-      break;
-  case "h": controls.reset = true; break;
-
-
+		case " ":
+			controls.fly = true;
+	        console.log("space!!");
+	        break;
+		case "h": controls.reset = true; break;
+	
+	
 		// switch cameras
 		case "1": gameState.camera = camera; break;
 		case "2": gameState.camera = avatarCam; break;
-  case "3": gameState.camera = edgeCam; break;
-
+		case "3": gameState.camera = edgeCam; break;
+	
 		// move the camera around, relative to the avatar
 		case "ArrowLeft": avatarCam.translateY(1);break;
 		case "ArrowRight": avatarCam.translateY(-1);break;
 		case "ArrowUp": avatarCam.translateZ(-1);break;
 		case "ArrowDown": avatarCam.translateZ(1);break;
-
 	}
-
 }
 
 function keyup(event){
@@ -565,8 +539,8 @@ function keyup(event){
 		case "p": controls.up    = false; break;
 		case "f": controls.down  = false; break;
 		case "m": controls.speed = 10; break;
-  case " ": controls.fly = false; break;
-  case "h": controls.reset = false; break;
+        case " ": controls.fly = false; break;
+        case "h": controls.reset = false; break;
 	}
 }
 
@@ -592,9 +566,9 @@ function updateAvatar(){
 		suzanne.setLinearVelocity(velocity); //stop the xz motion
 	}
 
-if (controls.fly){
-  suzanne.setLinearVelocity(new THREE.Vector3(0,controls.speed,0));
-}
+	if (controls.fly){
+	  suzanne.setLinearVelocity(new THREE.Vector3(0,controls.speed,0));
+	}
 
 	if (controls.left){
 		suzanne.setAngularVelocity(new THREE.Vector3(0, controls.speed * 0.3, 0));
@@ -602,13 +576,11 @@ if (controls.fly){
 		suzanne.setAngularVelocity(new THREE.Vector3(0, -controls.speed * 0.3, 0));
 	}
 
-if (controls.reset){
-  suzanne.__dirtyPosition = true;
-  suzanne.position.set(40,10,40);
+	if (controls.reset){
+	  suzanne.__dirtyPosition = true;
+	  suzanne.position.set(40,10,40);
+	}
 }
-
-}
-
 
 function tilt() {
 	var min = Math.PI/2;
@@ -623,16 +595,13 @@ function tilt() {
 	}
 }
 
-
 function animate() {
-
 	requestAnimationFrame( animate );
-
 	switch(gameState.scene) {
 		case "start":
 			//startText.rotateY(0.005);
 			renderer.render( startScene, startCamera );
-		break;
+			break;
 
 		case "youwon":
 			endText.rotateY(0.005);
@@ -648,8 +617,8 @@ function animate() {
 			updateAvatar();
 			updateNPC();
 			tilt();
-    edgeCam.lookAt(suzanne.position);
-        scene.simulate();
+            edgeCam.lookAt(suzanne.position);
+            scene.simulate();
 			if (gameState.camera!= 'none'){
 				renderer.render( scene, gameState.camera );
 			}
@@ -659,12 +628,10 @@ function animate() {
 		  console.log("don't know the scene "+gameState.scene);
 
 	}
-
-
-  var info = document.getElementById("info");
+	
+	var info = document.getElementById("info");
 	info.innerHTML='<div style="font-size:24pt">Score: '
-+ gameState.score
-+ " Health="+gameState.health
-+ '</div>';
-
+					+ gameState.score
+					+ " Health="+gameState.health
+					+ '</div>';
 }
