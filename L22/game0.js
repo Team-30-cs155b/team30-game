@@ -53,8 +53,6 @@ The user moves a cube around the board trying to knock balls into a cone
 	function createEndScene(){
 		endScene = initScene();
 		endText = createSkyBox('youwon.png',10);
-
-		//endText.rotateX(Math.PI);
 		endScene.add(endText);
 		var light1 = createPointLight();
 		light1.position.set(0,200,20);
@@ -140,12 +138,7 @@ The user moves a cube around the board trying to knock balls into a cone
 			npc = createBoxMesh2(0x0000ff,1,2,4);
 			npc.position.set(30,5,-30);
       npc.addEventListener('collision',function(other_object){
-        // if (other_object==avatar){
-				// 	gameState.health --;
-				// 	npc.__dirtyPosition = true;
-				// 	npc.position.set(Math.floor((Math.random() * 30) + 1),5,Math.floor((Math.random() * 30 ) + 1));
 				// 	console.log(npc.position);
-        // }
 				if(other_object == suzanne){
 					gameState.health --;
 					npc.__dirtyPosition = true;
@@ -183,12 +176,12 @@ The user moves a cube around the board trying to knock balls into a cone
 
 
 
-	function addBalls(){
+	function addBalls() {
 		var goal = 20;
 		var numYBalls = 15;
 		var numBBalls = 5;
 		var spBall = createSPBall();
-		spBall.position.set(randN(80),30,randN(80));
+		spBall.position.set(randN(30),30,randN(30));
 		scene.add(spBall);
 		spBall.addEventListener( 'collision',
 			function( other_object, relative_velocity, relative_rotation, contact_normal ) {
@@ -201,11 +194,8 @@ The user moves a cube around the board trying to knock balls into a cone
 					}
 					scene.remove(this);
 				}
-				else if (other_object == cone){
-					gameState.health += 10;
-				}
 			}
-		)
+		);
 
 		for(i = 0; i < numYBalls; i++) {
 			var ball = createBall(1, 0xfff777);
@@ -214,7 +204,7 @@ The user moves a cube around the board trying to knock balls into a cone
 			ball.addEventListener( 'collision',
 				function( other_object, relative_velocity, relative_rotation, contact_normal ) {
 					if (other_object == suzanne){
-						console.log("ball " + i + " hit the cone");
+						console.log("You " + i + " hit a yellow ball");
 						soundEffect('good.wav');
 						gameState.score += 1;  // add one to the score
 						if (gameState.score == goal) {
@@ -223,7 +213,7 @@ The user moves a cube around the board trying to knock balls into a cone
             scene.remove(this);
 					}
 				}
-			)
+			);
 		}
 
 		for(i = 0; i < numBBalls; i++) {
@@ -233,7 +223,7 @@ The user moves a cube around the board trying to knock balls into a cone
 			ball.addEventListener( 'collision',
 				function( other_object, relative_velocity, relative_rotation, contact_normal ) {
 					if (other_object == suzanne){
-						console.log("ball " + i + " hit the cone");
+						console.log("You " + i + " hit a blue ball");
 						soundEffect('good.wav');
 						gameState.score += 2;  // add one to the score
 						if (gameState.score == goal) {
@@ -241,13 +231,9 @@ The user moves a cube around the board trying to knock balls into a cone
 						}
             scene.remove(this);
 					}
-          else if (other_object == cone){
-            gameState.health += 2;
-          }
 				}
-			)
+			);
 		}
-
 	}
 
 
@@ -332,7 +318,6 @@ The user moves a cube around the board trying to knock balls into a cone
 		var geometry = new THREE.BoxGeometry( 1, 1, 1);
 		var material = new THREE.MeshLambertMaterial( { color: color} );
 		mesh = new Physijs.BoxMesh( geometry, material );
-    //mesh = new Physijs.BoxMesh( geometry, material,0 );
 		mesh.castShadow = true;
 		return mesh;
 	}
@@ -341,7 +326,6 @@ The user moves a cube around the board trying to knock balls into a cone
 		var geometry = new THREE.BoxGeometry( w, h, d);
 		var material = new THREE.MeshLambertMaterial( { color: color} );
 		mesh = new Physijs.BoxMesh( geometry, material );
-		//mesh = new Physijs.BoxMesh( geometry, material,0 );
 		mesh.castShadow = true;
 		return mesh;
 	}
@@ -350,7 +334,6 @@ The user moves a cube around the board trying to knock balls into a cone
     var geometry = new THREE.BoxGeometry( w, h, d);
     var material = new THREE.MeshLambertMaterial( { color: color} );
     mesh = new Physijs.BoxMesh( geometry, material, 0 );
-    //mesh = new Physijs.BoxMesh( geometry, material,0 );
     mesh.castShadow = true;
     return mesh;
   }
@@ -366,7 +349,6 @@ The user moves a cube around the board trying to knock balls into a cone
 		texture.repeat.set( 15, 15 );
 		var material = new THREE.MeshLambertMaterial( { color: 0xffffff,  map: texture ,side:THREE.DoubleSide} );
 		var pmaterial = new Physijs.createMaterial(material,0.9,0.05);
-		//var mesh = new THREE.Mesh( geometry, material );
 		var mesh = new Physijs.BoxMesh( geometry, pmaterial, 0 );
 		mesh.receiveShadow = true;
 		mesh.rotateX(Math.PI/2);
@@ -383,12 +365,9 @@ The user moves a cube around the board trying to knock balls into a cone
 		texture.wrapT = THREE.RepeatWrapping;
 		texture.repeat.set( k, k );
 		var material = new THREE.MeshLambertMaterial( { color: 0xffffff,  map: texture ,side:THREE.DoubleSide} );
-		//var pmaterial = new Physijs.createMaterial(material,0.9,0.5);
-		//var mesh = new THREE.Mesh( geometry, material );
 		var mesh = new THREE.Mesh( geometry, material, 0 );
 		mesh.receiveShadow = false;
 		return mesh
-		// we need to rotate the mesh 90 degrees to make it horizontal not vertical
 
 
 	}
@@ -522,6 +501,7 @@ The user moves a cube around the board trying to knock balls into a cone
       case "h": controls.reset = true; break;
 
 
+
 			// switch cameras
 			case "1": gameState.camera = camera; break;
 			case "2": gameState.camera = avatarCam; break;
@@ -532,14 +512,14 @@ The user moves a cube around the board trying to knock balls into a cone
 			case "ArrowRight": avatarCam.translateY(-1);break;
 			case "ArrowUp": avatarCam.translateZ(-1);break;
 			case "ArrowDown": avatarCam.translateZ(1);break;
+			case "q": avatarCam.rotateY(-1); break;
+			case "e": avatarCam.rotateY(1); break;
 
 		}
 
 	}
 
 	function keyup(event){
-		//console.log("Keydown:"+event.key);
-		//console.dir(event);
 		switch (event.key){
 			case "w": controls.fwd   = false;  break;
 			case "s": controls.bwd   = false; break;
