@@ -118,8 +118,8 @@ The user moves a cube around the board trying to knock balls into a cone
 			avatarCam.translateZ(4);
 			gameState.camera = avatarCam;
 
-      edgeCam = new THREE.PerspectiveCamera( 120, window.innerWidth / window.innerHeight, 0.1, 1000 );
-      edgeCam.position.set(20,20,10);
+      			edgeCam = new THREE.PerspectiveCamera( 120, window.innerWidth / window.innerHeight, 0.1, 1000 );
+      			edgeCam.position.set(20,20,10);
 
 
 			addBalls();
@@ -180,7 +180,7 @@ The user moves a cube around the board trying to knock balls into a cone
 		var numYBalls = 15;
 		var numBBalls = 5;
 		var spBall = createSPBall();
-		spBall.position.set(randN(30),30,randN(30));
+		spBall.position.set(randN(30)+15,35,randN(30)+15);
 		scene.add(spBall);
 		spBall.addEventListener( 'collision',
 			function( other_object, relative_velocity, relative_rotation, contact_normal ) {
@@ -188,9 +188,7 @@ The user moves a cube around the board trying to knock balls into a cone
 					console.log("You " + i + " hits the SPECIAL BALL");
 					soundEffect('good.wav');
 					gameState.score += 20;  // add one to the score
-					if (gameState.score == goal) {
-						gameState.scene = 'youwon';
-					}
+					gameState.scene = 'youwon';
 					scene.remove(this);
 				}
 			}
@@ -424,17 +422,18 @@ The user moves a cube around the board trying to knock balls into a cone
 		var geometry = new THREE.SphereGeometry(m, 16, 16);
 		var material = new THREE.MeshLambertMaterial( { color: c} );
 		var pmaterial = new Physijs.createMaterial(material,0.9,0.95);
-    var mesh = new Physijs.BoxMesh( geometry, pmaterial );
+    		var mesh = new Physijs.BoxMesh( geometry, pmaterial );
 		mesh.setDamping(0.1,0.1);
 		mesh.castShadow = true;
 		return mesh;
 	}
 
 	function createSPBall(){
-		var geometry = new THREE.SphereGeometry(0.1, 16, 16);
-		var material = new THREE.MeshBasicMaterial( { color: 0xffffff, envMap: scene.background, refractionRatio: 0.95 } );
+		var params = { opacity: 0.15 };
+		var geometry = new THREE.SphereGeometry(0.2, 16, 16);
+		var material = new THREE.MeshLambertMaterial( {opacity: params.opacity, transparent: true} );
 		var pmaterial = new Physijs.createMaterial(material,0.9,0.95);
-    var mesh = new Physijs.BoxMesh( geometry, pmaterial );
+    		var mesh = new Physijs.BoxMesh( geometry, pmaterial );
 		mesh.setDamping(0.1,0.1);
 		mesh.castShadow = true;
 		return mesh;
@@ -513,8 +512,9 @@ The user moves a cube around the board trying to knock balls into a cone
 			case "ArrowRight": avatarCam.translateY(-1);break;
 			case "ArrowUp": avatarCam.translateZ(-1);break;
 			case "ArrowDown": avatarCam.translateZ(1);break;
-			case "q": avatarCam.rotateY(-1); break;
-			case "e": avatarCam.rotateY(1); break;
+			case "q": avatarCam.rotateY(Math.PI/180); break;
+			case "e": avatarCam.rotateY(-Math.PI/180); break;
+			case "b": avatarCam.rotation.y = 0;
 
 		}
 
