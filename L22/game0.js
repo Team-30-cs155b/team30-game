@@ -138,7 +138,6 @@ The user moves a cube around the board trying to knock balls into a cone
 			npc = createBoxMesh2(0x0000ff,1,2,4);
 			npc.position.set(30,5,-30);
       npc.addEventListener('collision',function(other_object){
-				// 	console.log(npc.position);
 				if(other_object == suzanne){
 					gameState.health --;
 					npc.__dirtyPosition = true;
