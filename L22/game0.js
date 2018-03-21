@@ -151,7 +151,7 @@ function createEndScene(){
 	endCamera = new THREE.PerspectiveCamera( 90, window.innerWidth / window.innerHeight, 0.1, 1000 );
 	endCamera.position.set(0,50,1);
 	endCamera.lookAt(0,0,0);
-	
+
 }
 
 function createLoseScene(){
@@ -334,7 +334,7 @@ function createLoseScene(){
     mesh.castShadow = true;
     return mesh;
   }
-  
+
 	function createGround(image){
 		// creating a textured plane which receives shadows
 		var geometry = new THREE.PlaneGeometry( 180, 180, 128 );
@@ -524,6 +524,8 @@ function createPlane(image,k){
 			case "ArrowDown": avatarCam.translateZ(1);break;
 			case "q": avatarCam.rotateY(Math.PI/180); break;
 			case "e": avatarCam.rotateY(-Math.PI/180); break;
+			case "z": avatarCam.rotateX(Math.PI/180); break;
+			case "c": avatarCam.rotateX(-Math.PI/180); break;
 			case "b": avatarCam.rotation.y = 0; breake;
 
 		}
@@ -556,10 +558,10 @@ function createPlane(image,k){
 
 function updateAvatar(){
 	"change the avatar's linear or angular velocity based on controls state (set by WSAD key presses)"
-	
+
 	var forward = suzanne.getWorldDirection();
 	var curr = suzanne.getLinearVelocity();
-	
+
 	if (controls.fwd){
 		curr = new THREE.Vector3(forward.x * controls.speed, curr.y, forward.z * controls.speed);
 		suzanne.setLinearVelocity(curr);
@@ -571,12 +573,12 @@ function updateAvatar(){
 		curr.x = curr.z = 0;
 		suzanne.setLinearVelocity(curr); //stop the xz motion
 	}
-	
+
 	if (controls.fly){
 		curr.y = controls.speed/2;
 		suzanne.setLinearVelocity(curr);
 	}
-	
+
 	if (controls.left){
 		suzanne.setAngularVelocity(new THREE.Vector3(0, controls.speed * 0.3, 0));
 	}else if (controls.right){
@@ -584,7 +586,7 @@ function updateAvatar(){
 	}else{
 		suzanne.setAngularVelocity(new THREE.Vector3(0, 0, 0));
 	}
-	
+
 	if (controls.reset){
 		suzanne.__dirtyPosition = true;
 		suzanne.position.set(40,10,40);
