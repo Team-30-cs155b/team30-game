@@ -524,7 +524,7 @@ function createPlane(image,k){
 			case "ArrowDown": avatarCam.translateZ(1);break;
 			case "q": avatarCam.rotateY(Math.PI/180); break;
 			case "e": avatarCam.rotateY(-Math.PI/180); break;
-			case "b": avatarCam.rotation.y = 0;
+			case "b": avatarCam.rotation.y = 0; breake;
 
 		}
 
