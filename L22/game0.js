@@ -201,6 +201,7 @@ function createLoseScene(){
 				function( other_object, relative_velocity, relative_rotation, contact_normal ) {
 					if (other_object == suzanne){
 						console.log("ball " + i + " hit the cone");
+						soundEffect('blip.wav')
 					}
 					if(other_object == cone){
 						gameState.score +=5;
@@ -222,14 +223,14 @@ function createLoseScene(){
 				function( other_object, relative_velocity, relative_rotation, contact_normal ) {
 					if (other_object==suzanne){
 						console.log("ball "+i+" hit the cone");
-						soundEffect('blip.wav');
+						scene.remove(this);
+						soundEffect('good.wav');
 						gameState.score += 1;  // add one to the score
 						if (gameState.score==numBalls) {
 							soundEffect('applause_y.wav');
 							gameState.scene='youwon';
 
 						}
-            scene.remove(this);
 					}
 				}
 			);
