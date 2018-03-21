@@ -217,7 +217,7 @@ The user moves a cube around the board trying to knock balls into a cone
 						console.log("ball " + i + " hit the cone");
 					}
 					if(other_object == cone){
-						gameState.score +=5;
+						gameState.health +=1;
 						soundEffect('good.wav');
 						scene.remove(this);
 						if (gameState.score == goal) {
