@@ -147,10 +147,12 @@ The user moves a cube around the board trying to knock balls into a cone
 				function( other_object, relative_velocity, relative_rotation, contact_normal ) {
 					if (other_object==avatar){
 						console.log("ball "+i+" hit the cone");
-						soundEffect('good.wav');
+						soundEffect('blip.wav');
 						gameState.score += 1;  // add one to the score
 						if (gameState.score==numBalls) {
+							soundEffect('applause_y.wav');
 							gameState.scene='youwon';
+
 						}
             //scene.remove(ball);  // this isn't working ...
 						// make the ball drop below the scene ..
