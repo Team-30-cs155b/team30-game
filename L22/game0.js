@@ -25,49 +25,9 @@ var gameState =
      {score:0, health:3, scene:'main', camera:'none' }
      
 // Here is the main game control
-init(); //
+init();
 initControls();
-animate();  // start the animation loop!
-
-function createStartScene(){
-	startScene = initScene();
-	startText = createPlane('start.png', 1);
-	startScene.add(startText);
-	//startText.rotateY(Math.PI);
-	var lightS = createPointLight();
-	lightS.position.set(0,0,100);
-	startScene.add(lightS);
-	startCamera = new THREE.PerspectiveCamera( 90, window.innerWidth / window.innerHeight, 0.1, 1000 );
-	startCamera.position.set(0,0,20);
-	startCamera.lookAt(0,0,0);
-}
-
-function createEndScene(){
-	endScene = initScene();
-	endText = createSkyBox('youwon.png',10);
-
-	//endText.rotateX(Math.PI);
-	endScene.add(endText);
-	var light1 = createPointLight();
-	light1.position.set(0,200,20);
-	endScene.add(light1);
-	endCamera = new THREE.PerspectiveCamera( 90, window.innerWidth / window.innerHeight, 0.1, 1000 );
-	endCamera.position.set(0,50,1);
-	endCamera.lookAt(0,0,0);
-
-}
-
-function createLoseScene(){
-	loseScene = initScene();
-	loseText = createSkyBox('gameover.png',10);
-	loseScene.add(loseText);
-	var lightL = createPointLight();
-	lightL.position.set(0,200,20);
-	loseScene.add(lightL);
-	loseCamera = new THREE.PerspectiveCamera( 90, window.innerWidth / window.innerHeight, 0.1, 1000 );
-	loseCamera.position.set(0,50,1);
-	loseCamera.lookAt(0,0,0);
-}
+animate();// start the animation loop!
 
 /**
   To initialize the scene, we initialize each of its components
@@ -97,13 +57,11 @@ function createMainScene(){
 	
 	gameState.scene = 'start';
 	
-	
 	// create the ground and the skybox
 	var ground = createGround('grass.png');
 	scene.add(ground);
-	var skybox = createSkyBox('sky.jpg',1);
+	var skybox = createSkyBox('sky.jpg',2);
 	scene.add(skybox);
-	
 	// create the avatar
 	avatarCam = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 0.1, 1000 );
 	initSuzanne();
@@ -113,7 +71,6 @@ function createMainScene(){
 	
 	edgeCam = new THREE.PerspectiveCamera( 120, window.innerWidth / window.innerHeight, 0.1, 1000 );
 	edgeCam.position.set(20,20,10);
-	
 	
 	addBalls();
 	
@@ -126,7 +83,7 @@ function createMainScene(){
 			soundEffect('good.wav');
 			console.log("hits the cone, health increases by 1");
 		}
-	})
+	});
 	
 	npc = createBoxMesh2(0x0000ff,1,2,4);
 	npc.position.set(30,5,-30);
@@ -146,7 +103,7 @@ function createMainScene(){
 		if(gameState.health == 0){
 			gameState.scene = 'gameover';
 		}
-	})
+	});
 	scene.add(npc);
 	
 	var wall = createWall(0xffaa00,50,3,1);
@@ -160,9 +117,48 @@ function createMainScene(){
 		if(gameState.health == 0){
 			gameState.scene = 'gameover';
 		}
-	})
+	});
 	//console.dir(npc);
 	//playGameMusic();
+}
+
+function createStartScene(){
+	startScene = initScene();
+	startText = createPlane('start.png', 1);
+	startScene.add(startText);
+	var lightS = createPointLight();
+	lightS.position.set(0,0,100);
+	startScene.add(lightS);
+	startCamera = new THREE.PerspectiveCamera( 90, window.innerWidth / window.innerHeight, 0.1, 1000 );
+	startCamera.position.set(0,0,20);
+	startCamera.lookAt(0,0,0);
+}
+
+function createEndScene(){
+	endScene = initScene();
+	endText = createSkyBox('youwon.png',10);
+	
+	//endText.rotateX(Math.PI);
+	endScene.add(endText);
+	var light1 = createPointLight();
+	light1.position.set(0,200,20);
+	endScene.add(light1);
+	endCamera = new THREE.PerspectiveCamera( 90, window.innerWidth / window.innerHeight, 0.1, 1000 );
+	endCamera.position.set(0,50,1);
+	endCamera.lookAt(0,0,0);
+	
+}
+
+function createLoseScene(){
+	loseScene = initScene();
+	loseText = createSkyBox('gameover.png',10);
+	loseScene.add(loseText);
+	var lightL = createPointLight();
+	lightL.position.set(0,200,20);
+	loseScene.add(lightL);
+	loseCamera = new THREE.PerspectiveCamera( 90, window.innerWidth / window.innerHeight, 0.1, 1000 );
+	loseCamera.position.set(0,50,1);
+	loseCamera.lookAt(0,0,0);
 }
 
 function randN(n){
@@ -354,7 +350,7 @@ function createGround(image){
 }
 
 function createSkyBox(image,k){
-	// creating a textured plane which receives shadows
+	// creating a textured sphere to be the sky
 	var geometry = new THREE.SphereGeometry( 80, 80, 80 );
 	var texture = new THREE.TextureLoader().load( '../images/'+image );
 	texture.wrapS = THREE.RepeatWrapping;
@@ -366,14 +362,11 @@ function createSkyBox(image,k){
 	//var mesh = new Physijs.BoxMesh( geometry, pmaterial, 0 );
 	mesh.receiveShadow = false;
 	return mesh
-	// we need to rotate the mesh 90 degrees to make it horizontal not vertical
-
-
 }
 
 function createPlane(image,k){
 	// creating a textured plane
-	var geometry = new THREE.PlaneGeometry( 90, 80);
+	var geometry = new THREE.PlaneGeometry( 60, 40);
 	var texture = new THREE.TextureLoader().load( '../images/'+image );
 	texture.wrapS = THREE.RepeatWrapping;
 	texture.wrapT = THREE.RepeatWrapping;
@@ -394,7 +387,7 @@ function initSuzanne() {
 			console.log("loading suzanne");
 			var material = new THREE.MeshLambertMaterial( { color: 0xffffcc } );
 			var pmaterial = new Physijs.createMaterial(material, 0.9, 0.5);
-			suzanne = new Physijs.BoxMesh( geometry, pmaterial );
+			suzanne = new Physijs.ConcaveMesh( geometry, pmaterial );
 			console.log("created suzanne mesh");
 			console.log(JSON.stringify(suzanne.scale));
 			scene.add(suzanne);
@@ -528,11 +521,11 @@ function keydown(event){
 }
 
 function keyup(event){
-	//console.log("Keydown:"+event.key);
-	//console.dir(event);
+	console.dir(event);
+	console.log("Keyup: '"+event.key+"'");
 	switch (event.key){
-		case "w": controls.fwd   = false;  break;
-		case "s": controls.bwd   = false; break;
+		case "w": controls.fwd   = false; break;
+		case "s":controls.bwd   = false; break;
 		case "a": controls.left  = false; break;
 		case "d": controls.right = false; break;
 		case "r": controls.up    = false; break;
@@ -555,25 +548,31 @@ function updateAvatar(){
 	"change the avatar's linear or angular velocity based on controls state (set by WSAD key presses)"
 
 	var forward = suzanne.getWorldDirection();
-
+	var curr = suzanne.getLinearVelocity();
+	
 	if (controls.fwd){
-		suzanne.setLinearVelocity(forward.multiplyScalar(controls.speed));
+		curr = new THREE.Vector3(forward.x * controls.speed, curr.y, forward.z * controls.speed);
+		suzanne.setLinearVelocity(curr);
+		console.log("1")
 	} else if (controls.bwd){
-		suzanne.setLinearVelocity(forward.multiplyScalar(-controls.speed));
+		curr = new THREE.Vector3(forward.x * -controls.speed, curr.y, forward.z * -controls.speed);
+		suzanne.setLinearVelocity(curr);
 	} else {
-		var velocity = suzanne.getLinearVelocity();
-		velocity.x = velocity.z = 0;
-		suzanne.setLinearVelocity(velocity); //stop the xz motion
+		curr.x = curr.z = 0;
+		suzanne.setLinearVelocity(curr); //stop the xz motion
 	}
-
+	
 	if (controls.fly){
-	  suzanne.setLinearVelocity(new THREE.Vector3(0,controls.speed,0));
+		curr.y = controls.speed/2;
+	    suzanne.setLinearVelocity(curr);
 	}
 
 	if (controls.left){
 		suzanne.setAngularVelocity(new THREE.Vector3(0, controls.speed * 0.3, 0));
-	} else if (controls.right){
+	}else if (controls.right){
 		suzanne.setAngularVelocity(new THREE.Vector3(0, -controls.speed * 0.3, 0));
+	}else{
+		suzanne.setAngularVelocity(new THREE.Vector3(0, 0, 0));
 	}
 
 	if (controls.reset){
