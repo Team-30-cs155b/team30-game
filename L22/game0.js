@@ -219,12 +219,6 @@ function createLoseScene(){
 			scene.add(ball);
 			ball.addEventListener( 'collision',
 				function( other_object, relative_velocity, relative_rotation, contact_normal ) {
-					if (other_object == suzanne){
-						console.log("You " + i + " hit a blue ball");
-						soundEffect('good.wav');
-						gameState.score += 2;  // add one to the score
-						if (gameState.score == goal) {
-							gameState.scene = 'youwon';
 						}
             scene.remove(this);
 					}
