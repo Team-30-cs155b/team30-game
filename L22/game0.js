@@ -219,6 +219,14 @@ function createLoseScene(){
 			scene.add(ball);
 			ball.addEventListener( 'collision',
 				function( other_object, relative_velocity, relative_rotation, contact_normal ) {
+					if (other_object==avatar){
+						console.log("ball "+i+" hit the cone");
+						soundEffect('blip.wav');
+						gameState.score += 1;  // add one to the score
+						if (gameState.score==numBalls) {
+							soundEffect('applause_y.wav');
+							gameState.scene='youwon';
+
 						}
             scene.remove(this);
 					}
