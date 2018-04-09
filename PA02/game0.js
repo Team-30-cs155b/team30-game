@@ -162,27 +162,13 @@ function randN(n){
 
 function addBalls() {
 	var goal = 20;
-	var numYBalls = 15;
-	var numBBalls = 5;
-	var spBall = createSPBall();
-	spBall.position.set(randN(30)+15,35,randN(30)+15);
-	scene.add(spBall);
-	spBall.addEventListener(
-		'collision',
-		function( other_object, relative_velocity, relative_rotation, contact_normal ) {
-			if (other_object == suzanne){
-				console.log("You " + i + " hits the SPECIAL BALL");
-				soundEffect('good.wav');
-				gameState.score += 20;  // add one to the score
-				gameState.scene = 'youwon';
-				scene.remove(this);
-			}
-		}
-	);
+	var numYBalls = 10;
+	var numBBalls = 10;
+	var numRBalls = 10;
 
 	for(i = 0; i < numYBalls; i++) {
 		var ball = createBall(1, 0xfff777);
-		ball.position.set(randN(50)+15,30,randN(50)+15);
+		ball.position.set(randN(160)-80,30,randN(160)-80);
 		scene.add(ball);
 		ball.addEventListener(
 			'collision',
@@ -204,8 +190,8 @@ function addBalls() {
 	}
 
 	for(i = 0; i < numBBalls; i++) {
-		var ball = createBall(0.7, 0x77bbff);
-		ball.position.set(randN(80)+15,30,randN(80)+15);
+		var ball = createBall(1, 0x77bbff);
+		ball.position.set(randN(160)-80,30,randN(160)-80);
 		scene.add(ball);
 		ball.addEventListener(
 			'collision',
@@ -219,6 +205,28 @@ function addBalls() {
 						soundEffect('applause_y.wav');
 						gameState.scene='youwon';
 
+					}
+				}
+			}
+		);
+	}
+	
+	for(i = 0; i < numRBalls; i++) {
+		var ball = createBall(1, 0xff0000);
+		ball.position.set(randN(160)-80,30,randN(160)-80);
+		scene.add(ball);
+		ball.addEventListener(
+			'collision',
+			function( other_object, relative_velocity, relative_rotation, contact_normal ) {
+				if (other_object==suzanne){
+					console.log("ball "+i+" hit the cone");
+					scene.remove(this);
+					soundEffect('good.wav');
+					gameState.score += 1;  // add one to the score
+					if (gameState.score==numBalls) {
+						soundEffect('applause_y.wav');
+						gameState.scene='youwon';
+						
 					}
 				}
 			}
