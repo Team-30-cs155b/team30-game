@@ -12,6 +12,7 @@ The user moves a cube around the board trying to knock balls into a cone
 	var camera, avatarCam, edgeCam;  // we have two cameras in the main scene
 	var suzanne; // The monkey avatar
 	var cone;
+	var coneBlue;
 	var npc;
 
 	var startScene, startCamera, startText;
@@ -70,6 +71,7 @@ The user moves a cube around the board trying to knock balls into a cone
 			// create the ground and the skybox
 			var ground = createGround('grass.png');
 			scene.add(ground);
+			console.log("this is a test");
 			var skybox = createSkyBox('sky.jpg',1);
 			scene.add(skybox);
 
@@ -86,8 +88,21 @@ The user moves a cube around the board trying to knock balls into a cone
 
 			addBalls();
 
+			coneBlue = createConeMesh(4,6);
+			coneBlue.position.set(40,3,7);
+			scene.add(coneBlue);
+
+			coneRed = createConeMesh(4,6);
+			coneRed.position.set(0,3,40);
+			scene.add(coneRed);
+
+			coneGreen = createConeMesh(4,6);
+			coneGreen.position.set(0,3,-40);
+			scene.add(coneGreen);
+
+
 			cone = createConeMesh(4,6);
-			cone.position.set(10,3,7);
+			cone.position.set(-40,3,7);
 			scene.add(cone);
 			cone.addEventListener('collision',function(other_object){
 				if (other_object==suzanne){
