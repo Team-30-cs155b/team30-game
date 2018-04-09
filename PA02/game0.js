@@ -128,7 +128,7 @@ The user moves a cube around the board trying to knock balls into a cone
       })
 			scene.add(npc);
 
-      var wall = createWall(0xffaa00,50,3,1);
+      var wall = createWall(0xffaa00,50,10,1);
       wall.position.set(10,0,20);
       scene.add(wall);
 			wall.addEventListener('collision',function(other_object){
@@ -140,6 +140,20 @@ The user moves a cube around the board trying to knock balls into a cone
 					gameState.scene = 'gameover';
 				}
 			})
+			var wall = createWall(0xffaa00,50,10,1);
+			wall.position.set(-50,0,20);
+			scene.add(wall);
+
+			var wall = createWall(0xffaa00,100,10,1);
+			wall.position.set(-10,0,-20);
+			scene.add(wall);
+
+			var wall = createWall(0xffaa00,1,10,30);
+			wall.position.set(0,0,0);
+			scene.add(wall);
+
+
+
 			//console.dir(npc);
 			//playGameMusic();
 
