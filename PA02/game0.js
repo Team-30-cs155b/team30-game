@@ -61,7 +61,7 @@ The user moves a cube around the board trying to knock balls into a cone
 
 			// create main camera
 			camera = new THREE.PerspectiveCamera( 90, window.innerWidth / window.innerHeight, 0.1, 1000 );
-			camera.position.set(0,50,0);
+			camera.position.set(0,70,0);
 			camera.lookAt(0,0,0);
 
 			gameState.scene = 'start';
@@ -76,8 +76,9 @@ The user moves a cube around the board trying to knock balls into a cone
 			// create the avatar
 			avatarCam = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 0.1, 1000 );
 			initSuzanne();
-			avatarCam.translateY(-4);
-			avatarCam.translateZ(4);
+			// avatarCam.position.set()
+			avatarCam.translateY(0);
+			avatarCam.translateZ(12);
 			gameState.camera = avatarCam;
 
       			edgeCam = new THREE.PerspectiveCamera( 120, window.innerWidth / window.innerHeight, 0.1, 1000 );
@@ -96,6 +97,9 @@ The user moves a cube around the board trying to knock balls into a cone
 					console.log("hits the cone, health increases by 1");
 				}
 			})
+			cone = createConeMesh(4,6);
+			cone.position.set(-10,3,-20);
+			scene.add(cone);
 
 			npc = createBoxMesh2(0x0000ff,1,2,4);
 			npc.position.set(30,5,-30);
@@ -113,7 +117,7 @@ The user moves a cube around the board trying to knock balls into a cone
       })
 			scene.add(npc);
 
-      var wall = createWall(0xffaa00,50,3,1);
+      var wall = createWall(0xffaa00,50,10,1);
       wall.position.set(10,0,20);
       scene.add(wall);
 			wall.addEventListener('collision',function(other_object){
@@ -125,6 +129,24 @@ The user moves a cube around the board trying to knock balls into a cone
 					gameState.scene = 'gameover';
 				}
 			})
+
+			var wall = createWall(0xffaa00,50,10,1);
+			wall.position.set(-50,0,20);
+			scene.add(wall);
+
+			var wall = createWall(0xffaa00,50,10,1);
+			wall.position.set(-50,0,-40);
+			scene.add(wall);
+
+			var wall = createWall(0xffaa00,50,10,1);
+			wall.position.set(10,0,-40);
+			scene.add(wall);
+
+			var wall = createWall(0xffaa00,100,10,1);
+			wall.position.set(0,0,-10);
+			scene.add(wall);
+
+
 			//console.dir(npc);
 			//playGameMusic();
 
