@@ -26,6 +26,7 @@ The user moves a cube around the board trying to knock balls into a cone
 
 	var gameState =
 	     {score:0, health:3, scene:'main', camera:'none' };
+<<<<<<< HEAD
 
 
 	// Here is the main game control
@@ -67,6 +68,49 @@ The user moves a cube around the board trying to knock balls into a cone
 			gameState.scene = 'start';
 
 
+=======
+
+
+	// Here is the main game control
+  init(); //
+	initControls();
+	animate();  // start the animation loop!
+
+
+
+
+
+	/**
+	  To initialize the scene, we initialize each of its components
+	*/
+	function init(){
+      initPhysijs();
+			scene = initScene();
+			createStartScene();
+			createEndScene();
+			createLoseScene();
+			initRenderer();
+			createMainScene();
+	}
+
+
+	function createMainScene(){
+      // setup lighting
+			var light1 = createPointLight();
+			light1.position.set(0,200,20);
+			scene.add(light1);
+			var light0 = new THREE.AmbientLight( 0xffffff,0.25);
+			scene.add(light0);
+
+			// create main camera
+			camera = new THREE.PerspectiveCamera( 90, window.innerWidth / window.innerHeight, 0.1, 1000 );
+			camera.position.set(0,50,0);
+			camera.lookAt(0,0,0);
+
+			gameState.scene = 'start';
+
+
+>>>>>>> parent of 4b5dd05... 改了 indent
 			// create the ground and the skybox
 			var ground = createGround('grass.png');
 			scene.add(ground);
@@ -76,9 +120,14 @@ The user moves a cube around the board trying to knock balls into a cone
 			// create the avatar
 			avatarCam = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 0.1, 1000 );
 			initSuzanne();
+<<<<<<< HEAD
 			// avatarCam.position.set()
 			avatarCam.translateY(0);
 			avatarCam.translateZ(12);
+=======
+			avatarCam.translateY(-4);
+			avatarCam.translateZ(4);
+>>>>>>> parent of 4b5dd05... 改了 indent
 			gameState.camera = avatarCam;
 
       			edgeCam = new THREE.PerspectiveCamera( 120, window.innerWidth / window.innerHeight, 0.1, 1000 );
@@ -97,9 +146,12 @@ The user moves a cube around the board trying to knock balls into a cone
 					console.log("hits the cone, health increases by 1");
 				}
 			})
+<<<<<<< HEAD
 			cone = createConeMesh(4,6);
 			cone.position.set(-10,3,-20);
 			scene.add(cone);
+=======
+>>>>>>> parent of 4b5dd05... 改了 indent
 
 			npc = createBoxMesh2(0x0000ff,1,2,4);
 			npc.position.set(30,5,-30);
@@ -117,7 +169,11 @@ The user moves a cube around the board trying to knock balls into a cone
       })
 			scene.add(npc);
 
+<<<<<<< HEAD
       var wall = createWall(0xffaa00,50,10,1);
+=======
+      var wall = createWall(0xffaa00,50,3,1);
+>>>>>>> parent of 4b5dd05... 改了 indent
       wall.position.set(10,0,20);
       scene.add(wall);
 			wall.addEventListener('collision',function(other_object){
@@ -129,6 +185,7 @@ The user moves a cube around the board trying to knock balls into a cone
 					gameState.scene = 'gameover';
 				}
 			})
+<<<<<<< HEAD
 
 			var wall = createWall(0xffaa00,50,10,1);
 			wall.position.set(-50,0,20);
@@ -147,6 +204,8 @@ The user moves a cube around the board trying to knock balls into a cone
 			scene.add(wall);
 
 
+=======
+>>>>>>> parent of 4b5dd05... 改了 indent
 			//console.dir(npc);
 			//playGameMusic();
 
@@ -403,8 +462,13 @@ function createPlane(image,k){
 		var mesh = new THREE.Mesh( geometry, material, 0 );
 		mesh.receiveShadow = false;
 		return mesh
+<<<<<<< HEAD
 
 
+=======
+
+
+>>>>>>> parent of 4b5dd05... 改了 indent
 	}
 
 	function initSuzanne() {
