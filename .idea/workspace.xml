@@ -17,26 +17,34 @@
       <file leaf-file-name="game0.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/PA02/game0.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-801">
-              <caret line="101" column="4" lean-forward="false" selection-start-line="101" selection-start-column="4" selection-end-line="101" selection-end-column="4" />
+            <state relative-caret-position="381">
+              <caret line="732" column="50" lean-forward="false" selection-start-line="732" selection-start-column="50" selection-end-line="732" selection-end-column="50" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
-                <element signature="e#2544#2657#0" expanded="false" />
-                <element signature="n#!!block;n#addBalls#0" expanded="true" />
-                <element signature="e#5118#5353#0" expanded="true" />
-                <element signature="e#5646#5879#0" expanded="true" />
-                <element signature="e#6167#6399#0" expanded="true" />
-                <element signature="e#14323#15538#0" expanded="false" />
-                <element signature="e#16502#16652#0" expanded="false" />
-                <element signature="e#16675#16808#0" expanded="false" />
-                <element signature="e#16814#16897#0" expanded="false" />
-                <element signature="e#16918#16986#0" expanded="false" />
-                <element signature="e#17008#17089#0" expanded="false" />
-                <element signature="e#17113#17195#0" expanded="false" />
-                <element signature="e#17199#17261#0" expanded="false" />
-                <element signature="e#17284#17356#0" expanded="false" />
-                <element signature="e#17360#18265#0" expanded="false" />
-                <marker date="1523321499569" expanded="true" signature="19406:19420" ph="..." />
+                <element signature="e#576#682#0" expanded="false" />
+                <element signature="e#701#755#0" expanded="false" />
+                <element signature="n#!!block;n#createMainScene#0" expanded="true" />
+                <element signature="e#2529#2642#0" expanded="false" />
+                <element signature="e#2806#3088#0" expanded="true" />
+                <element signature="e#5081#5316#0" expanded="true" />
+                <element signature="e#5609#5842#0" expanded="true" />
+                <element signature="e#6130#6362#0" expanded="true" />
+                <element signature="n#!!block;n#createBoxMesh2#0" expanded="true" />
+                <element signature="e#14286#15501#0" expanded="false" />
+                <element signature="n#!!block;n#updateNPC#0" expanded="true" />
+                <element signature="e#16465#16615#0" expanded="false" />
+                <element signature="e#16638#16771#0" expanded="false" />
+                <element signature="e#16777#16860#0" expanded="false" />
+                <element signature="e#16881#16949#0" expanded="false" />
+                <element signature="e#16971#17052#0" expanded="false" />
+                <element signature="e#17076#17158#0" expanded="false" />
+                <element signature="e#17162#17224#0" expanded="false" />
+                <element signature="e#17247#17319#0" expanded="false" />
+                <element signature="e#17323#18228#0" expanded="false" />
+                <element signature="e#19424#19753#0" expanded="true" />
+                <element signature="e#20219#20548#0" expanded="true" />
+                <element signature="e#21015#21344#0" expanded="true" />
+                <marker date="1523325725643" expanded="true" signature="21838:21852" ph="..." />
               </folding>
             </state>
           </provider>
@@ -149,12 +157,12 @@
       <option name="presentableId" value="Default" />
       <updated>1521645654130</updated>
       <workItem from="1521645658105" duration="689000" />
-      <workItem from="1523318313282" duration="2897000" />
+      <workItem from="1523318313282" duration="7217000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="3586000" />
+    <option name="totallyTimeSpent" value="7906000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-12" y="-12" width="3224" height="1754" extended-state="6" />
@@ -204,26 +212,34 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/PA02/game0.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-801">
-          <caret line="101" column="4" lean-forward="false" selection-start-line="101" selection-start-column="4" selection-end-line="101" selection-end-column="4" />
+        <state relative-caret-position="381">
+          <caret line="732" column="50" lean-forward="false" selection-start-line="732" selection-start-column="50" selection-end-line="732" selection-end-column="50" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
-            <element signature="e#2544#2657#0" expanded="false" />
-            <element signature="n#!!block;n#addBalls#0" expanded="true" />
-            <element signature="e#5118#5353#0" expanded="true" />
-            <element signature="e#5646#5879#0" expanded="true" />
-            <element signature="e#6167#6399#0" expanded="true" />
-            <element signature="e#14323#15538#0" expanded="false" />
-            <element signature="e#16502#16652#0" expanded="false" />
-            <element signature="e#16675#16808#0" expanded="false" />
-            <element signature="e#16814#16897#0" expanded="false" />
-            <element signature="e#16918#16986#0" expanded="false" />
-            <element signature="e#17008#17089#0" expanded="false" />
-            <element signature="e#17113#17195#0" expanded="false" />
-            <element signature="e#17199#17261#0" expanded="false" />
-            <element signature="e#17284#17356#0" expanded="false" />
-            <element signature="e#17360#18265#0" expanded="false" />
-            <marker date="1523321499569" expanded="true" signature="19406:19420" ph="..." />
+            <element signature="e#576#682#0" expanded="false" />
+            <element signature="e#701#755#0" expanded="false" />
+            <element signature="n#!!block;n#createMainScene#0" expanded="true" />
+            <element signature="e#2529#2642#0" expanded="false" />
+            <element signature="e#2806#3088#0" expanded="true" />
+            <element signature="e#5081#5316#0" expanded="true" />
+            <element signature="e#5609#5842#0" expanded="true" />
+            <element signature="e#6130#6362#0" expanded="true" />
+            <element signature="n#!!block;n#createBoxMesh2#0" expanded="true" />
+            <element signature="e#14286#15501#0" expanded="false" />
+            <element signature="n#!!block;n#updateNPC#0" expanded="true" />
+            <element signature="e#16465#16615#0" expanded="false" />
+            <element signature="e#16638#16771#0" expanded="false" />
+            <element signature="e#16777#16860#0" expanded="false" />
+            <element signature="e#16881#16949#0" expanded="false" />
+            <element signature="e#16971#17052#0" expanded="false" />
+            <element signature="e#17076#17158#0" expanded="false" />
+            <element signature="e#17162#17224#0" expanded="false" />
+            <element signature="e#17247#17319#0" expanded="false" />
+            <element signature="e#17323#18228#0" expanded="false" />
+            <element signature="e#19424#19753#0" expanded="true" />
+            <element signature="e#20219#20548#0" expanded="true" />
+            <element signature="e#21015#21344#0" expanded="true" />
+            <marker date="1523325725643" expanded="true" signature="21838:21852" ph="..." />
           </folding>
         </state>
       </provider>

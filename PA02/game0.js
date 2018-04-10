@@ -10,8 +10,7 @@ The user moves a cube around the board trying to knock balls into a cone
 var scene, renderer;  // all threejs programs need these
 var camera, avatarCam, edgeCam;  // we have two cameras in the main scene
 var suzanne; // The monkey avatar
-var cone;
-var coneBlue;
+var cone, coneYellow, coneBlue, coneRed;
 var npc;
 
 var startScene, startCamera, startText;
@@ -72,7 +71,6 @@ function createMainScene(){
 	// create the ground and the skybox
 	var ground = createGround('grass.png');
 	scene.add(ground);
-	console.log("this is a test");
 	var skybox = createSkyBox('sky.jpg',1);
 	scene.add(skybox);
 	
@@ -115,7 +113,7 @@ function createMainScene(){
 	);
 	
 	npc = createBoxMesh2(0x0000ff,1,2,4);
-	npc.position.set(30,5,-30);
+	npc.position.set(randN(100)-50, 5, randN(100)-50);
 	npc.addEventListener(
 		'collision',
 		function(other_object){
@@ -123,7 +121,7 @@ function createMainScene(){
 				gameState.health --;
 				soundEffect('bad.wav');
 				npc.__dirtyPosition = true;
-				npc.position.set(Math.floor((Math.random() * 30) + 1),5,Math.floor((Math.random() * 30 ) + 1));
+				npc.position.set(randN(100)-50, 5, randN(100)-50);
 				console.log(npc.position);
 			}
 			if(gameState.health == 0){
@@ -647,6 +645,10 @@ function tilt() {
 	}
 }
 
+var hasNPC2 = false;
+var hasNPC3 = false;
+var hasNPC4 = false;
+var npc2, npc3, npc4;
 function animate() {
 	requestAnimationFrame( animate );
 
@@ -670,22 +672,106 @@ function animate() {
 			updateNPC();
 			tilt();
             edgeCam.lookAt(suzanne.position);
-            scene.simulate();
+			if (gameState.score >= 5) {
+				if (!hasNPC2){
+					npc2 = createBoxMesh2(0xff0000,1,2,4);
+					npc2.position.set(randN(100)-50, 5, randN(100)-50);
+					scene.add(npc2);
+					npc2.addEventListener(
+						'collision',
+						function(other_object){
+							if(other_object == suzanne){
+								gameState.health --;
+								soundEffect('bad.wav');
+								npc2.__dirtyPosition = true;
+								npc2.position.set(randN(100)-50, 5, randN(100)-50);
+								console.log(npc2.position);
+							}
+							if(gameState.health == 0){
+								gameState.scene = 'gameover';
+							}
+						}
+					);
+					
+					hasNPC2 = true;
+				}
+				npc2.lookAt(suzanne.position);
+				if (npc2.position.distanceTo(suzanne.position)< 30){
+					npc2.setLinearVelocity(npc2.getWorldDirection().multiplyScalar(5));
+				}
+			}
+			if (gameState.score >= 10) {
+				if (!hasNPC3){
+					npc3 = createBoxMesh2(0xfffff,1,2,4);
+					npc3.position.set(randN(100)-50, 5, randN(100)-50);
+					scene.add(npc3);
+					npc3.addEventListener(
+						'collision',
+						function(other_object){
+							if(other_object == suzanne){
+								gameState.health --;
+								soundEffect('bad.wav');
+								npc3.__dirtyPosition = true;
+								npc3.position.set(randN(100)-50, 5, randN(100)-50);
+								console.log(npc3.position);
+							}
+							if(gameState.health == 0){
+								gameState.scene = 'gameover';
+							}
+						}
+					);
+					
+					hasNPC3 = true;
+				}
+				npc3.lookAt(suzanne.position);
+				if (npc3.position.distanceTo(suzanne.position)< 30){
+					npc3.setLinearVelocity(npc3.getWorldDirection().multiplyScalar(5));
+				}
+			}
+			if (gameState.score >= 15) {
+				if (!hasNPC4){
+					npc4 = createBoxMesh2(0xff91cf,1,2,4);
+					npc4.position.set(randN(100)-50, 5, randN(100)-50);
+					scene.add(npc4);
+					npc4.addEventListener(
+						'collision',
+						function(other_object){
+							if(other_object == suzanne){
+								gameState.health --;
+								soundEffect('bad.wav');
+								npc4.__dirtyPosition = true;
+								npc4.position.set(randN(100)-50, 5, randN(100)-50);
+								console.log(npc4.position);
+							}
+							if(gameState.health == 0){
+								gameState.scene = 'gameover';
+							}
+						}
+					);
+					
+					hasNPC4 = true;
+				}
+				npc4.lookAt(suzanne.position);
+				if (npc4.position.distanceTo(suzanne.position)< 30){
+					npc4.setLinearVelocity(npc4.getWorldDirection().multiplyScalar(5));
+				}
+
+			}
+			
+			scene.simulate();
 			if (gameState.camera!= 'none'){
 				renderer.render( scene, gameState.camera );
 			}
 			break;
 
 		default:
-		  console.log("don't know the scene "+gameState.scene);
+		  console.log("don't know the scene " + gameState.scene);
 
 	}
 
-
 	var info = document.getElementById("info");
-	info.innerHTML='<div style="font-size:24pt">Score: '
-		+ gameState.score
-		+ " Health="+gameState.health
-		+ '</div>';
-
+	info.innerHTML= '<div style="font-size:24pt">Score: '
+		+ gameState.score + "  Health = " + gameState.health + '</div>';
+	
+	
 }
