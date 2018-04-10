@@ -84,62 +84,71 @@ function createMainScene(){
 	gameState.camera = avatarCam;
 	
 	edgeCam = new THREE.PerspectiveCamera( 120, window.innerWidth / window.innerHeight, 0.1, 1000 );
-	edgeCam.position.set(20,20,10);
+	edgeCam.position.set(20, 20, 10);
 	
 	addBalls();
 	
-	coneBlue = createConeMesh(4,6);
-	coneBlue.position.set(40,3,7);
+	coneBlue = createConeMesh(4, 6, 0xfff777);
+	coneBlue.position.set(40, 3, 0);
 	scene.add(coneBlue);
 	
-	coneRed = createConeMesh(4,6);
-	coneRed.position.set(0,3,40);
+	coneRed = createConeMesh(4, 6, 0x77bbff);
+	coneRed.position.set(0, 3, 40);
 	scene.add(coneRed);
 	
-	coneGreen = createConeMesh(4,6);
-	coneGreen.position.set(0,3,-40);
+	coneGreen = createConeMesh(4, 6, 0xff0000);
+	coneGreen.position.set(0, 3, -40);
 	scene.add(coneGreen);
 	
 	
-	cone = createConeMesh(4,6);
-	cone.position.set(-40,3,7);
+	cone = createConeMesh(4, 6, 0xffffff);
+	cone.position.set(-40, 3, 0);
 	scene.add(cone);
-	cone.addEventListener('collision',function(other_object){
-	if (other_object==suzanne){
-		gameState.health ++;
-		soundEffect('good.wav');
-		console.log("hits the cone, health increases by 1");
-	}
-	})
+	cone.addEventListener(
+		'collision',
+		function(other_object){
+			if (other_object==suzanne){
+			gameState.health ++;
+			soundEffect('good.wav');
+			console.log("hits the cone, health increases by 1");
+		}
+		}
+	);
 	
 	npc = createBoxMesh2(0x0000ff,1,2,4);
 	npc.position.set(30,5,-30);
-	npc.addEventListener('collision',function(other_object){
-	if(other_object == suzanne){
-		gameState.health --;
-		soundEffect('bad.wav');
-		npc.__dirtyPosition = true;
-		npc.position.set(Math.floor((Math.random() * 30) + 1),5,Math.floor((Math.random() * 30 ) + 1));
-		console.log(npc.position);
-	}
-	if(gameState.health == 0){
-		gameState.scene = 'gameover';
-	}
-	})
+	npc.addEventListener(
+		'collision',
+		function(other_object){
+			if(other_object == suzanne){
+				gameState.health --;
+				soundEffect('bad.wav');
+				npc.__dirtyPosition = true;
+				npc.position.set(Math.floor((Math.random() * 30) + 1),5,Math.floor((Math.random() * 30 ) + 1));
+				console.log(npc.position);
+			}
+			if(gameState.health == 0){
+				gameState.scene = 'gameover';
+			}
+		}
+	);
 	scene.add(npc);
 	
 	var wall = createWall(0xffaa00,50,10,1);
 	wall.position.set(10,0,20);
 	scene.add(wall);
-	wall.addEventListener('collision',function(other_object){
-	if (other_object==suzanne){
-		soundEffect('bad.wav');
-		gameState.health --;
-	}
-	if(gameState.health == 0){
-		gameState.scene = 'gameover';
-	}
-	})
+	wall.addEventListener(
+		'collision',
+		function(other_object){
+			if (other_object==suzanne){
+				soundEffect('bad.wav');
+				gameState.health --;
+			}
+			if(gameState.health == 0){
+				gameState.scene = 'gameover';
+			}
+		}
+	);
 	var wall = createWall(0xffaa00,50,10,1);
 	wall.position.set(-50,0,20);
 	scene.add(wall);
@@ -441,13 +450,13 @@ function initSuzanne() {
 	avatarCam.lookAt(0,4,10);
 }
 
-function createConeMesh(r,h){
+function createConeMesh(r, h, color){
 	var geometry = new THREE.ConeGeometry( r, h, 32);
 	var texture = new THREE.TextureLoader().load( '../images/tile.jpg' );
 	texture.wrapS = THREE.RepeatWrapping;
 	texture.wrapT = THREE.RepeatWrapping;
 	texture.repeat.set( 1, 1 );
-	var material = new THREE.MeshLambertMaterial( { color: 0xffffff,  map: texture ,side:THREE.DoubleSide} );
+	var material = new THREE.MeshLambertMaterial( { color: color,  map: texture ,side:THREE.DoubleSide} );
 	var pmaterial = new Physijs.createMaterial(material,0.9,0.5);
 	var mesh = new Physijs.ConeMesh( geometry, pmaterial, 0 );
 	mesh.castShadow = true;

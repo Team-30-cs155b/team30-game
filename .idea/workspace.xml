@@ -14,34 +14,36 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="525">
-      <file leaf-file-name="game0.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="game0.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/PA02/game0.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="283">
-              <caret line="198" column="0" lean-forward="false" selection-start-line="198" selection-start-column="0" selection-end-line="198" selection-end-column="0" />
+            <state relative-caret-position="716">
+              <caret line="103" column="40" lean-forward="false" selection-start-line="103" selection-start-column="40" selection-end-line="103" selection-end-column="40" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
-                <element signature="e#14633#15848#0" expanded="false" />
-                <element signature="e#16812#16962#0" expanded="false" />
-                <element signature="e#16985#17118#0" expanded="false" />
-                <element signature="e#17124#17207#0" expanded="false" />
-                <element signature="e#17228#17296#0" expanded="false" />
-                <element signature="e#17318#17399#0" expanded="false" />
-                <element signature="e#17423#17505#0" expanded="false" />
-                <element signature="e#17509#17571#0" expanded="false" />
-                <element signature="e#17594#17666#0" expanded="false" />
-                <element signature="e#17670#18575#0" expanded="false" />
-                <marker date="1523319157132" expanded="true" signature="19716:19730" ph="..." />
+                <element signature="e#2543#2656#0" expanded="false" />
+                <element signature="n#!!block;n#addBalls#0" expanded="true" />
+                <element signature="e#14762#15977#0" expanded="false" />
+                <element signature="e#16941#17091#0" expanded="false" />
+                <element signature="e#17114#17247#0" expanded="false" />
+                <element signature="e#17253#17336#0" expanded="false" />
+                <element signature="e#17357#17425#0" expanded="false" />
+                <element signature="e#17447#17528#0" expanded="false" />
+                <element signature="e#17552#17634#0" expanded="false" />
+                <element signature="e#17638#17700#0" expanded="false" />
+                <element signature="e#17723#17795#0" expanded="false" />
+                <element signature="e#17799#18704#0" expanded="false" />
+                <marker date="1523320567283" expanded="true" signature="19845:19859" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="game0.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="game0.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/PA02/game0.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="42">
-              <caret line="1" column="4" lean-forward="true" selection-start-line="1" selection-start-column="4" selection-end-line="1" selection-end-column="4" />
+            <state relative-caret-position="126">
+              <caret line="3" column="3" lean-forward="true" selection-start-line="3" selection-start-column="3" selection-end-line="3" selection-end-column="3" />
               <folding />
             </state>
           </provider>
@@ -130,6 +132,9 @@
   <component name="ShelveChangesManager" show_recycled="false">
     <option name="remove_strategy" value="false" />
   </component>
+  <component name="StructureViewFactory">
+    <option name="ACTIVE_ACTIONS" value=",SHOW_FIELDS" />
+  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -141,26 +146,26 @@
       <option name="presentableId" value="Default" />
       <updated>1521645654130</updated>
       <workItem from="1521645658105" duration="689000" />
-      <workItem from="1523318313282" duration="877000" />
+      <workItem from="1523318313282" duration="1987000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1566000" />
+    <option name="totallyTimeSpent" value="2676000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-12" y="-12" width="3224" height="1754" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2499209" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25320512" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1923077" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -186,32 +191,34 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/L22/game0.html" />
     <entry file="file://$PROJECT_DIR$/L22/game0.js" />
-    <entry file="file://$PROJECT_DIR$/PA02/game0.html">
+    <entry file="file://$PROJECT_DIR$/PA02/game0.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="42">
-          <caret line="1" column="4" lean-forward="true" selection-start-line="1" selection-start-column="4" selection-end-line="1" selection-end-column="4" />
-          <folding />
+        <state relative-caret-position="716">
+          <caret line="103" column="40" lean-forward="false" selection-start-line="103" selection-start-column="40" selection-end-line="103" selection-end-column="40" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="e#2543#2656#0" expanded="false" />
+            <element signature="n#!!block;n#addBalls#0" expanded="true" />
+            <element signature="e#14762#15977#0" expanded="false" />
+            <element signature="e#16941#17091#0" expanded="false" />
+            <element signature="e#17114#17247#0" expanded="false" />
+            <element signature="e#17253#17336#0" expanded="false" />
+            <element signature="e#17357#17425#0" expanded="false" />
+            <element signature="e#17447#17528#0" expanded="false" />
+            <element signature="e#17552#17634#0" expanded="false" />
+            <element signature="e#17638#17700#0" expanded="false" />
+            <element signature="e#17723#17795#0" expanded="false" />
+            <element signature="e#17799#18704#0" expanded="false" />
+            <marker date="1523320567283" expanded="true" signature="19845:19859" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/PA02/game0.js">
+    <entry file="file://$PROJECT_DIR$/PA02/game0.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="283">
-          <caret line="198" column="0" lean-forward="false" selection-start-line="198" selection-start-column="0" selection-end-line="198" selection-end-column="0" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-            <element signature="e#14633#15848#0" expanded="false" />
-            <element signature="e#16812#16962#0" expanded="false" />
-            <element signature="e#16985#17118#0" expanded="false" />
-            <element signature="e#17124#17207#0" expanded="false" />
-            <element signature="e#17228#17296#0" expanded="false" />
-            <element signature="e#17318#17399#0" expanded="false" />
-            <element signature="e#17423#17505#0" expanded="false" />
-            <element signature="e#17509#17571#0" expanded="false" />
-            <element signature="e#17594#17666#0" expanded="false" />
-            <element signature="e#17670#18575#0" expanded="false" />
-            <marker date="1523319157132" expanded="true" signature="19716:19730" ph="..." />
-          </folding>
+        <state relative-caret-position="126">
+          <caret line="3" column="3" lean-forward="true" selection-start-line="3" selection-start-column="3" selection-end-line="3" selection-end-column="3" />
+          <folding />
         </state>
       </provider>
     </entry>
