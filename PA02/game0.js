@@ -88,18 +88,17 @@ function createMainScene(){
 	
 	addBalls();
 	
-	coneBlue = createConeMesh(4, 6, 0xfff777);
-	coneBlue.position.set(40, 3, 0);
+	coneYellow = createConeMesh(4, 6, 0xfff777);
+	coneYellow.position.set(40, 3, 0);
+	scene.add(coneYellow);
+	
+	coneBlue = createConeMesh(4, 6, 0x77bbff);
+	coneBlue.position.set(0, 3, 40);
 	scene.add(coneBlue);
 	
-	coneRed = createConeMesh(4, 6, 0x77bbff);
-	coneRed.position.set(0, 3, 40);
+	coneRed = createConeMesh(4, 6, 0xff0000);
+	coneRed.position.set(0, 3, -40);
 	scene.add(coneRed);
-	
-	coneGreen = createConeMesh(4, 6, 0xff0000);
-	coneGreen.position.set(0, 3, -40);
-	scene.add(coneGreen);
-	
 	
 	cone = createConeMesh(4, 6, 0xffffff);
 	cone.position.set(-40, 3, 0);
@@ -137,27 +136,16 @@ function createMainScene(){
 	var wall = createWall(0xffaa00,50,10,1);
 	wall.position.set(10,0,20);
 	scene.add(wall);
-	wall.addEventListener(
-		'collision',
-		function(other_object){
-			if (other_object==suzanne){
-				soundEffect('bad.wav');
-				gameState.health --;
-			}
-			if(gameState.health == 0){
-				gameState.scene = 'gameover';
-			}
-		}
-	);
-	var wall = createWall(0xffaa00,50,10,1);
+	
+	wall = createWall(0xffaa00,50,10,1);
 	wall.position.set(-50,0,20);
 	scene.add(wall);
 	
-	var wall = createWall(0xffaa00,100,10,1);
+	wall = createWall(0xffaa00,100,10,1);
 	wall.position.set(-10,0,-20);
 	scene.add(wall);
 	
-	var wall = createWall(0xffaa00,1,10,30);
+	wall = createWall(0xffaa00,1,10,30);
 	wall.position.set(0,0,0);
 	scene.add(wall);
 	
@@ -212,18 +200,15 @@ function addBalls() {
 	var numRBalls = 10;
 	
 	for(i = 0; i < numYBalls; i++) {
-		var ball = createBall(1, 0xfff777);
-		ball.position.set(randN(160)-80,30,randN(160)-80);
-		scene.add(ball);
-		ball.addEventListener(
+		var yellowBall = createBall(1, 0xfff777);
+		yellowBall.position.set(randN(160)-80,30,randN(160)-80);
+		scene.add(yellowBall);
+		yellowBall.addEventListener(
 			'collision',
 			function( other_object, relative_velocity, relative_rotation, contact_normal ) {
-				if (other_object == suzanne){
-					console.log("ball " + i + " hit the cone");
-					soundEffect('blip.wav')
-				}
-				if(other_object == cone){
-					gameState.health +=1;
+				if(other_object == coneYellow){
+					gameState.health += 1;
+					gameState.score += 5;
 					soundEffect('good.wav');
 					scene.remove(this);
 					if (gameState.score == goal) {
@@ -235,42 +220,38 @@ function addBalls() {
 	}
 
 	for(i = 0; i < numBBalls; i++) {
-		var ball = createBall(0.7, 0x77bbff);
-		ball.position.set(randN(160)-80,30,randN(160)-80);
-		scene.add(ball);
-		ball.addEventListener(
+		var blueBall = createBall(1, 0x77bbff);
+		blueBall.position.set(randN(160)-80,30,randN(160)-80);
+		scene.add(blueBall);
+		blueBall.addEventListener(
 			'collision',
 			function( other_object, relative_velocity, relative_rotation, contact_normal ) {
-				if (other_object==suzanne){
-					console.log("ball "+i+" hit the cone");
-					scene.remove(this);
+				if(other_object == coneBlue){
+					gameState.health += 1;
+					gameState.score += 5;
 					soundEffect('good.wav');
-					gameState.score += 1;  // add one to the score
-					if (gameState.score==numBalls) {
-						soundEffect('applause_y.wav');
-						gameState.scene='youwon';
-
+					scene.remove(this);
+					if (gameState.score == goal) {
+						gameState.scene = 'youwon';
 					}
 				}
 			}
 		);
 	}
 	for(i = 0; i < numRBalls; i++) {
-		var ball = createBall(0.7, 0xff0000);
-		ball.position.set(randN(160)-80,30,randN(160)-80);
-		scene.add(ball);
-		ball.addEventListener(
+		var redBall = createBall(1, 0xff0000);
+		redBall.position.set(randN(160)-80,30,randN(160)-80);
+		scene.add(redBall);
+		redBall.addEventListener(
 			'collision',
 			function( other_object, relative_velocity, relative_rotation, contact_normal ) {
-				if (other_object==suzanne){
-					console.log("ball "+i+" hit the cone");
-					scene.remove(this);
+				if(other_object == coneRed){
+					gameState.health += 1;
+					gameState.score += 5;
 					soundEffect('good.wav');
-					gameState.score += 1;  // add one to the score
-					if (gameState.score==numBalls) {
-						soundEffect('applause_y.wav');
-						gameState.scene='youwon';
-						
+					scene.remove(this);
+					if (gameState.score == goal) {
+						gameState.scene = 'youwon';
 					}
 				}
 			}

@@ -14,32 +14,35 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="525">
-      <file leaf-file-name="game0.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="game0.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/PA02/game0.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="716">
-              <caret line="103" column="40" lean-forward="false" selection-start-line="103" selection-start-column="40" selection-end-line="103" selection-end-column="40" />
+            <state relative-caret-position="-801">
+              <caret line="101" column="4" lean-forward="false" selection-start-line="101" selection-start-column="4" selection-end-line="101" selection-end-column="4" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
-                <element signature="e#2543#2656#0" expanded="false" />
+                <element signature="e#2544#2657#0" expanded="false" />
                 <element signature="n#!!block;n#addBalls#0" expanded="true" />
-                <element signature="e#14762#15977#0" expanded="false" />
-                <element signature="e#16941#17091#0" expanded="false" />
-                <element signature="e#17114#17247#0" expanded="false" />
-                <element signature="e#17253#17336#0" expanded="false" />
-                <element signature="e#17357#17425#0" expanded="false" />
-                <element signature="e#17447#17528#0" expanded="false" />
-                <element signature="e#17552#17634#0" expanded="false" />
-                <element signature="e#17638#17700#0" expanded="false" />
-                <element signature="e#17723#17795#0" expanded="false" />
-                <element signature="e#17799#18704#0" expanded="false" />
-                <marker date="1523320567283" expanded="true" signature="19845:19859" ph="..." />
+                <element signature="e#5118#5353#0" expanded="true" />
+                <element signature="e#5646#5879#0" expanded="true" />
+                <element signature="e#6167#6399#0" expanded="true" />
+                <element signature="e#14323#15538#0" expanded="false" />
+                <element signature="e#16502#16652#0" expanded="false" />
+                <element signature="e#16675#16808#0" expanded="false" />
+                <element signature="e#16814#16897#0" expanded="false" />
+                <element signature="e#16918#16986#0" expanded="false" />
+                <element signature="e#17008#17089#0" expanded="false" />
+                <element signature="e#17113#17195#0" expanded="false" />
+                <element signature="e#17199#17261#0" expanded="false" />
+                <element signature="e#17284#17356#0" expanded="false" />
+                <element signature="e#17360#18265#0" expanded="false" />
+                <marker date="1523321499569" expanded="true" signature="19406:19420" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="game0.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="game0.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/PA02/game0.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="126">
@@ -146,12 +149,12 @@
       <option name="presentableId" value="Default" />
       <updated>1521645654130</updated>
       <workItem from="1521645658105" duration="689000" />
-      <workItem from="1523318313282" duration="1987000" />
+      <workItem from="1523318313282" duration="2897000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2676000" />
+    <option name="totallyTimeSpent" value="3586000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-12" y="-12" width="3224" height="1754" extended-state="6" />
@@ -191,34 +194,37 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/L22/game0.html" />
     <entry file="file://$PROJECT_DIR$/L22/game0.js" />
-    <entry file="file://$PROJECT_DIR$/PA02/game0.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="716">
-          <caret line="103" column="40" lean-forward="false" selection-start-line="103" selection-start-column="40" selection-end-line="103" selection-end-column="40" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-            <element signature="e#2543#2656#0" expanded="false" />
-            <element signature="n#!!block;n#addBalls#0" expanded="true" />
-            <element signature="e#14762#15977#0" expanded="false" />
-            <element signature="e#16941#17091#0" expanded="false" />
-            <element signature="e#17114#17247#0" expanded="false" />
-            <element signature="e#17253#17336#0" expanded="false" />
-            <element signature="e#17357#17425#0" expanded="false" />
-            <element signature="e#17447#17528#0" expanded="false" />
-            <element signature="e#17552#17634#0" expanded="false" />
-            <element signature="e#17638#17700#0" expanded="false" />
-            <element signature="e#17723#17795#0" expanded="false" />
-            <element signature="e#17799#18704#0" expanded="false" />
-            <marker date="1523320567283" expanded="true" signature="19845:19859" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/PA02/game0.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="126">
           <caret line="3" column="3" lean-forward="true" selection-start-line="3" selection-start-column="3" selection-end-line="3" selection-end-column="3" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PA02/game0.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-801">
+          <caret line="101" column="4" lean-forward="false" selection-start-line="101" selection-start-column="4" selection-end-line="101" selection-end-column="4" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="e#2544#2657#0" expanded="false" />
+            <element signature="n#!!block;n#addBalls#0" expanded="true" />
+            <element signature="e#5118#5353#0" expanded="true" />
+            <element signature="e#5646#5879#0" expanded="true" />
+            <element signature="e#6167#6399#0" expanded="true" />
+            <element signature="e#14323#15538#0" expanded="false" />
+            <element signature="e#16502#16652#0" expanded="false" />
+            <element signature="e#16675#16808#0" expanded="false" />
+            <element signature="e#16814#16897#0" expanded="false" />
+            <element signature="e#16918#16986#0" expanded="false" />
+            <element signature="e#17008#17089#0" expanded="false" />
+            <element signature="e#17113#17195#0" expanded="false" />
+            <element signature="e#17199#17261#0" expanded="false" />
+            <element signature="e#17284#17356#0" expanded="false" />
+            <element signature="e#17360#18265#0" expanded="false" />
+            <marker date="1523321499569" expanded="true" signature="19406:19420" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
