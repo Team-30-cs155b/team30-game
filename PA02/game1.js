@@ -51,82 +51,28 @@ function init(){
 	createLoseScene();
 	initRenderer();
 	createMainScene();
-	window.addEventListener( 'resize', onWindowResize, false );
 }
 
 function createMainScene(){
     // setup lighting
-	var light0 = createPointLight();
-	light0.position.set(0,200,20);
-	scene.add(light0);
-
-	var light1 = new THREE.AmbientLight( 0xffffff,0.25);
+	var light1 = createPointLight();
+	light1.position.set(0,200,20);
 	scene.add(light1);
-
-  /*var light2 = new THREE.SpotLight( 0xb1bec6 );
-  light2.position.set( 0, 150, 0 );
-  light2.castShadow = true;
-  scene.add( light2 );
-  light2.shadow.mapSize.width = 2048;  // default
-  light2.shadow.mapSize.height = 2048; // default
-  light2.shadow.camera.near = 0.5;       // default
-  light2.shadow.camera.far = 500      // default
-
-  var light3 = new THREE.SpotLight( 0x7a7a7a );
-  light3.position.set( -100, 10, 50 );
-  light3.castShadow = true;
-  scene.add( light3 );
-  light3.shadow.mapSize.width = 2048;  // default
-  light3.shadow.mapSize.height = 2048; // default
-  light3.shadow.camera.near = 0.5;       // default
-  light3.shadow.camera.far = 500*/
-
-  var light4 = new THREE.SpotLight( 0xd6ecff );
-  light4.position.set( 160, -150, -50 );
-  light4.castShadow = true;
-  scene.add( light4 );
-
-  light4.shadow.mapSize.width = 2048;  // default
-  light4.shadow.mapSize.height = 2048; // default
-  light4.shadow.camera.near = 0.5;       // default
-  light4.shadow.camera.far = 800;      // default
-  light4.intensity = 0.7;
-
-
-
+	var light0 = new THREE.AmbientLight( 0xffffff,0.25);
+	scene.add(light0);
 
 	// create main camera
 	camera = new THREE.PerspectiveCamera( 90, window.innerWidth / window.innerHeight, 0.1, 1000 );
 	camera.position.set(0,50,0);
 	camera.lookAt(0,0,0);
 
-  cameraT = new THREE.PerspectiveCamera( 90, window.innerWidth / window.innerHeight, 0.1, 1000 );
-	cameraT.position.set(0,0,0);
-	cameraT.lookAt(0,150,0);
-
 	gameState.scene = 'start';
 
 	// create the ground and the skybox
-	var ground = createGround('picg.jpg');
+	var ground = createGround('grass.png');
 	scene.add(ground);
-
-  var planeW = createPlaneW("pic11.jpg", 0, 0, -150);
-  scene.add(planeW);
-
-  planeW = createPlaneW("pic12.jpg", 150, 0, 0);
-  planeW.rotation.y = Math.PI/2;
-  scene.add(planeW);
-
-  planeW = createPlaneW("pic13.jpg",-150,0,0);
-  planeW.rotation.y = -Math.PI/2;
-  scene.add(planeW);
-
-  planeW = createPlaneW("pic14.jpg",0,0,150);
-  scene.add(planeW);
-
-  planeW = createPlaneW("pic5.jpg",0,150,0);
-  planeW.rotation.x = -Math.PI/2;
-  scene.add(planeW);
+	var skybox = createSkyBox('sky.jpg',1);
+	scene.add(skybox);
 
 	// create the avatar
 	avatarCam = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 0.1, 1000 );
@@ -211,8 +157,6 @@ function createStartScene(){
 	startScene.add(startText);
 	var lightS = createPointLight();
 	lightS.position.set(0,0,100);
-/* var lightT = createPointLight();
-	lightT.position.set(0,75,75);*/
 	startScene.add(lightS);
 	startCamera = new THREE.PerspectiveCamera( 90, window.innerWidth / window.innerHeight, 0.1, 1000 );
 	startCamera.position.set(0,0,20);
@@ -349,18 +293,12 @@ function soundEffect(file){
 	});
 }
 
-function onWindowResize() {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize( window.innerWidth, window.innerHeight );
-}
-
 /* We don't do much here, but we could do more!
 */
 function initScene(){
 	//scene = new THREE.Scene();
 	var scene = new Physijs.Scene();
-  return scene;
+	return scene;
 }
 
 function initPhysijs(){
@@ -416,26 +354,13 @@ function createWall(color,w,h,d){
 	return mesh;
 }
 
-function createPlaneW(image,x,y,z){
-  var geometry = new THREE.PlaneGeometry( 300, 300, 328 );
-	var texture = new THREE.TextureLoader().load( '../images/'+image );
-	texture.wrapS = THREE.RepeatWrapping;
-	texture.wrapT = THREE.RepeatWrapping;
-	texture.repeat.set( 1, 1 );
-	var material = new THREE.MeshLambertMaterial( { color: 0xffffff,  map: texture ,side:THREE.DoubleSide} );
-	var pmaterial = new Physijs.createMaterial(material,0.9,0.05);
-	var mesh = new Physijs.BoxMesh( geometry, pmaterial, 0 );
-  mesh.position.set(x,y,z);
-	mesh.receiveShadow = true;
-	return mesh;
-}
-
 function createGround(image){
 	// creating a textured plane which receives shadows
-	var geometry = new THREE.PlaneGeometry( 300, 300, 128 );
+	var geometry = new THREE.PlaneGeometry( 180, 180, 128 );
 	var texture = new THREE.TextureLoader().load( '../images/'+image );
 	texture.wrapS = THREE.RepeatWrapping;
 	texture.wrapT = THREE.RepeatWrapping;
+	texture.repeat.set( 15, 15 );
 	var material = new THREE.MeshLambertMaterial( { color: 0xffffff,  map: texture ,side:THREE.DoubleSide} );
 	var pmaterial = new Physijs.createMaterial(material,0.9,0.05);
 	var mesh = new Physijs.BoxMesh( geometry, pmaterial, 0 );
@@ -599,8 +524,7 @@ function keydown(event){
 		// switch cameras
 		case "1": gameState.camera = camera; break;
 		case "2": gameState.camera = avatarCam; break;
-    case "3": gameState.camera = edgeCam; break;
-    case "4": gameState.camera = cameraT; break;
+        case "3": gameState.camera = edgeCam; break;
 
 		// move the camera around, relative to the avatar
 		case "ArrowLeft": avatarCam.translateY(1);break;
@@ -674,6 +598,39 @@ function updateAvatar(){
 		suzanne.position.set(40,10,40);
 	}
 }
+
+/*function updateAvatar(){
+	"change the avatar's linear or angular velocity based on controls state (set by WSAD key presses)"
+
+	var forward = suzanne.getWorldDirection();
+
+	if (controls.fwd){
+		suzanne.setLinearVelocity(forward.multiplyScalar(controls.speed));
+	} else if (controls.bwd){
+		suzanne.setLinearVelocity(forward.multiplyScalar(-controls.speed));
+	} else {
+		var velocity = suzanne.getLinearVelocity();
+		velocity.x = velocity.z = 0;
+		suzanne.setLinearVelocity(velocity); //stop the xz motion
+	}
+
+if (controls.fly){
+  suzanne.setLinearVelocity(new THREE.Vector3(0,controls.speed,0));
+}
+
+	if (controls.left){
+		suzanne.setAngularVelocity(new THREE.Vector3(0, controls.speed * 0.3, 0));
+	} else if (controls.right){
+		suzanne.setAngularVelocity(new THREE.Vector3(0, -controls.speed * 0.3, 0));
+	}
+
+if (controls.reset){
+  suzanne.__dirtyPosition = true;
+  suzanne.position.set(40,10,40);
+}
+
+}
+*/
 
 function tilt() {
 	var min = Math.PI/2;
