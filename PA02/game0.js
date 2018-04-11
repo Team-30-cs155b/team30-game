@@ -360,10 +360,6 @@ function onWindowResize() {
 function initScene(){
 	//scene = new THREE.Scene();
 	var scene = new Physijs.Scene();
-<<<<<<< HEAD
-  window.addEventListener( 'resize', onWindowResize, false );
-=======
->>>>>>> master
   return scene;
 }
 
