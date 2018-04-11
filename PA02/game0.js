@@ -55,11 +55,44 @@ function init(){
 
 function createMainScene(){
     // setup lighting
-	var light1 = createPointLight();
-	light1.position.set(0,200,20);
-	scene.add(light1);
-	var light0 = new THREE.AmbientLight( 0xffffff,0.25);
+	var light0 = createPointLight();
+	light0.position.set(0,200,20);
 	scene.add(light0);
+
+	var light1 = new THREE.AmbientLight( 0xffffff,0.25);
+	scene.add(light1);
+
+  /*var light2 = new THREE.SpotLight( 0xb1bec6 );
+  light2.position.set( 0, 150, 0 );
+  light2.castShadow = true;
+  scene.add( light2 );
+  light2.shadow.mapSize.width = 2048;  // default
+  light2.shadow.mapSize.height = 2048; // default
+  light2.shadow.camera.near = 0.5;       // default
+  light2.shadow.camera.far = 500      // default
+
+  var light3 = new THREE.SpotLight( 0x7a7a7a );
+  light3.position.set( -100, 10, 50 );
+  light3.castShadow = true;
+  scene.add( light3 );
+  light3.shadow.mapSize.width = 2048;  // default
+  light3.shadow.mapSize.height = 2048; // default
+  light3.shadow.camera.near = 0.5;       // default
+  light3.shadow.camera.far = 500*/
+
+  var light4 = new THREE.SpotLight( 0xd6ecff );
+  light4.position.set( 160, -150, -50 );
+  light4.castShadow = true;
+  scene.add( light4 );
+
+  light4.shadow.mapSize.width = 2048;  // default
+  light4.shadow.mapSize.height = 2048; // default
+  light4.shadow.camera.near = 0.5;       // default
+  light4.shadow.camera.far = 800;      // default
+  light4.intensity = 0.7;
+
+
+
 
 	// create main camera
 	camera = new THREE.PerspectiveCamera( 90, window.innerWidth / window.innerHeight, 0.1, 1000 );
@@ -315,12 +348,19 @@ function soundEffect(file){
 	});
 }
 
+function onWindowResize() {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize( window.innerWidth, window.innerHeight );
+}
+
 /* We don't do much here, but we could do more!
 */
 function initScene(){
 	//scene = new THREE.Scene();
 	var scene = new Physijs.Scene();
-	return scene;
+  window.addEventListener( 'resize', onWindowResize, false );
+  return scene;
 }
 
 function initPhysijs(){
@@ -392,7 +432,7 @@ function createPlaneW(image,x,y,z){
 
 function createGround(image){
 	// creating a textured plane which receives shadows
-	var geometry = new THREE.PlaneGeometry( 180, 180, 128 );
+	var geometry = new THREE.PlaneGeometry( 300, 300, 128 );
 	var texture = new THREE.TextureLoader().load( '../images/'+image );
 	texture.wrapS = THREE.RepeatWrapping;
 	texture.wrapT = THREE.RepeatWrapping;
