@@ -107,26 +107,28 @@ function createMainScene(){
 	gameState.scene = 'start';
 
 	// create the ground and the skybox
-	var ground = createGround('picg.jpg');
+	var ground = createGround('orbital-element_dn.jpg');
 	scene.add(ground);
+	ground.position.set(0,-130,0);
+	ground.scale.set(0.5);
 
-  var planeW = createPlaneW("pic11.jpg", 0, 0, -150);
-  scene.add(planeW);
 
-  planeW = createPlaneW("pic12.jpg", 150, 0, 0);
-  planeW.rotation.y = Math.PI/2;
-  scene.add(planeW);
+	var loader = new THREE.TextureLoader();
+	var cubeMaterials =
+	[ new THREE.MeshBasicMaterial({map: loader.load('../images/orbital-element_ft.jpg'), side:THREE.DoubleSide}),
+		new THREE.MeshBasicMaterial({map: loader.load('../images/orbital-element_bk.jpg'), side:THREE.DoubleSide}),
+	  new THREE.MeshBasicMaterial({map: loader.load('../images/orbital-element_up.jpg'), side:THREE.DoubleSide}),
+    new THREE.MeshBasicMaterial({map: loader.load('../images/orbital-element_dn.jpg'), side:THREE.DoubleSide}),
+	  new THREE.MeshBasicMaterial({map: loader.load('../images/orbital-element_rt.jpg'), side:THREE.DoubleSide}),
+	  new THREE.MeshBasicMaterial({map: loader.load('../images/orbital-element_lf.jpg'), side:THREE.DoubleSide}),
+	];
 
-  planeW = createPlaneW("pic13.jpg",-150,0,0);
-  planeW.rotation.y = -Math.PI/2;
-  scene.add(planeW);
 
-  planeW = createPlaneW("pic14.jpg",0,0,150);
-  scene.add(planeW);
+	var cube = createSkyBoxBG(cubeMaterials);
+	scene.add(cube);
+	cube.position.set(0,75,0);
 
-  planeW = createPlaneW("pic5.jpg",0,150,0);
-  planeW.rotation.x = -Math.PI/2;
-  scene.add(planeW);
+
 
 	// create the avatar
 	avatarCam = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 0.1, 1000 );
@@ -468,6 +470,15 @@ function createSkyBox(image,k){
 	texture.wrapT = THREE.RepeatWrapping;
 	texture.repeat.set( k, k );
 	var material = new THREE.MeshLambertMaterial( { color: 0xffffff,  map: texture ,side:THREE.DoubleSide} );
+	var mesh = new THREE.Mesh( geometry, material, 0 );
+	mesh.receiveShadow = false;
+	return mesh
+}
+
+function createSkyBoxBG(material){
+	// creating a textured plane which receives shadows
+	var geometry = new THREE.BoxGeometry( 150, 150, 150 );
+	var material = material;
 	var mesh = new THREE.Mesh( geometry, material, 0 );
 	mesh.receiveShadow = false;
 	return mesh
