@@ -107,7 +107,7 @@ function createMainScene(){
 	gameState.scene = 'start';
 
 	// create the ground and the skybox
-	var ground = createGround('orbital-element_dn.jpg');
+	var ground = createGround('blood_dn.jpg');
 	scene.add(ground);
 	ground.position.set(0,-130,0);
 	ground.scale.set(0.5);
@@ -115,12 +115,12 @@ function createMainScene(){
 
 	var loader = new THREE.TextureLoader();
 	var cubeMaterials =
-	[ new THREE.MeshBasicMaterial({map: loader.load('../images/orbital-element_ft.jpg'), side:THREE.DoubleSide}),
-		new THREE.MeshBasicMaterial({map: loader.load('../images/orbital-element_bk.jpg'), side:THREE.DoubleSide}),
-	  new THREE.MeshBasicMaterial({map: loader.load('../images/orbital-element_up.jpg'), side:THREE.DoubleSide}),
-    new THREE.MeshBasicMaterial({map: loader.load('../images/orbital-element_dn.jpg'), side:THREE.DoubleSide}),
-	  new THREE.MeshBasicMaterial({map: loader.load('../images/orbital-element_rt.jpg'), side:THREE.DoubleSide}),
-	  new THREE.MeshBasicMaterial({map: loader.load('../images/orbital-element_lf.jpg'), side:THREE.DoubleSide}),
+	[ new THREE.MeshBasicMaterial({map: loader.load('../images/blood_ft.jpg'), side:THREE.DoubleSide}),
+		new THREE.MeshBasicMaterial({map: loader.load('../images/blood_bk.jpg'), side:THREE.DoubleSide}),
+	  new THREE.MeshBasicMaterial({map: loader.load('../images/blood_up.jpg'), side:THREE.DoubleSide}),
+    new THREE.MeshBasicMaterial({map: loader.load('../images/blood_dn.jpg'), side:THREE.DoubleSide}),
+	  new THREE.MeshBasicMaterial({map: loader.load('../images/blood_rt.jpg'), side:THREE.DoubleSide}),
+	  new THREE.MeshBasicMaterial({map: loader.load('../images/blood_lf.jpg'), side:THREE.DoubleSide}),
 	];
 
 
@@ -142,19 +142,19 @@ function createMainScene(){
 
 	addBalls();
 
-	coneYellow = createConeMesh(4, 6, 0xfff777);
+	coneYellow = createConeMesh(8, 12, 'cone-yellow.png');
 	coneYellow.position.set(40, 3, 0);
 	scene.add(coneYellow);
 
-	coneBlue = createConeMesh(4, 6, 0x77bbff);
+	coneBlue = createConeMesh(8, 12,'cone-blue.png');
 	coneBlue.position.set(0, 3, 40);
 	scene.add(coneBlue);
 
-	coneRed = createConeMesh(4, 6, 0xff0000);
+	coneRed = createConeMesh(8, 12, 'cone-red.jpeg');
 	coneRed.position.set(0, 3, -40);
 	scene.add(coneRed);
 
-	cone = createConeMesh(4, 6, 0xffffff);
+	cone = createConeMesh(8, 12, 'cone-silver.jpg');
 	cone.position.set(-40, 3, 0);
 	scene.add(cone);
 	cone.addEventListener(
@@ -213,8 +213,19 @@ function createStartScene(){
 	startScene.add(startText);
 	var lightS = createPointLight();
 	lightS.position.set(0,0,100);
-/* var lightT = createPointLight();
-	lightT.position.set(0,75,75);*/
+
+  var lightYellow = createPointLight();
+	lightYellow.position.set(40,3,0);
+
+	var lightBlue= createPointLight();
+	lightBlue.position.set(0,3,40);
+
+	var lightRed= createPointLight();
+	lightRed.position.set(0,3,-40);
+
+	var lightRed= createPointLight();
+	lightRed.position.set(-40,3,0);
+
 	startScene.add(lightS);
 	startCamera = new THREE.PerspectiveCamera( 90, window.innerWidth / window.innerHeight, 0.1, 1000 );
 	startCamera.position.set(0,0,20);
@@ -515,13 +526,13 @@ function initSuzanne() {
 	avatarCam.lookAt(0,4,10);
 }
 
-function createConeMesh(r, h, color){
-	var geometry = new THREE.ConeGeometry( r, h, 32);
-	var texture = new THREE.TextureLoader().load( '../images/tile.jpg' );
+function createConeMesh(r, h, image){
+	var geometry = new THREE.ConeGeometry( r, h, 64);
+	var texture = new THREE.TextureLoader().load( '../images/' + image);
 	texture.wrapS = THREE.RepeatWrapping;
 	texture.wrapT = THREE.RepeatWrapping;
 	texture.repeat.set( 1, 1 );
-	var material = new THREE.MeshLambertMaterial( { color: color,  map: texture ,side:THREE.DoubleSide} );
+	var material = new THREE.MeshBasicMaterial( {map: texture ,side:THREE.DoubleSide} );
 	var pmaterial = new Physijs.createMaterial(material,0.9,0.5);
 	var mesh = new Physijs.ConeMesh( geometry, pmaterial, 0 );
 	mesh.castShadow = true;
