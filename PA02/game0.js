@@ -497,30 +497,30 @@ function createSkyBoxBG(material){
 
 function initSuzanne() {
 	var loader = new THREE.JSONLoader();
-	loader.load("../models/suzanne.json",
+	loader.load("../models/pikachu.json",
 		function ( geometry, materials ) {
-					console.log("loading suzanne");
-					var material = new THREE.MeshLambertMaterial( { color: 0xffffcc } );
-					var pmaterial = new Physijs.createMaterial(material, 0.9, 0.5);
-					suzanne = new Physijs.BoxMesh( geometry, pmaterial );
-					console.log("created suzanne mesh");
-					console.log(JSON.stringify(suzanne.scale));
-					scene.add(suzanne);
-					var s = 1;
-					suzanne.scale.y = s;
-					suzanne.scale.x = s;
-					suzanne.scale.z = s;
-					suzanne.position.z = -5;
-					suzanne.position.y = 3;
-					suzanne.position.x = -5;
-					suzanne.castShadow = true;
-					scene.add(suzanne);
-					avatarCam.position.set(0,2,-5);
-					avatarCam.lookAt(0,2,10);
-					suzanne.add(avatarCam);
-				},
+			console.log("loading suzanne");
+			var material = new THREE.MeshLambertMaterial( { color: 0xffde5b } );
+			var pmaterial = new Physijs.createMaterial(material, 0.9, 1);
+			suzanne = new Physijs.ConvexMesh( geometry, pmaterial );
+			console.log("created suzanne mesh");
+			console.log(JSON.stringify(suzanne.scale));
+			scene.add(suzanne);
+			var s = 0.5;
+			suzanne.scale.y = s;
+			suzanne.scale.x = s;
+			suzanne.scale.z = s;
+			suzanne.position.z = -5;
+			suzanne.position.y = 3;
+			suzanne.position.x = -5;
+			suzanne.castShadow = true;
+			scene.add(suzanne);
+			avatarCam.position.set(0,10,-15);
+			avatarCam.lookAt(0,2,10);
+			suzanne.add(avatarCam);
+		},
 		function(xhr) {
-					console.log( (xhr.loaded / xhr.total * 100) + '% loaded' );},
+			console.log( (xhr.loaded / xhr.total * 100) + '% loaded' );},
 		function(err){console.log("error in loading: " + err);});
 	avatarCam.position.set(0,4,-1);
 	avatarCam.lookAt(0,4,10);
@@ -621,8 +621,8 @@ function keydown(event){
 		// switch cameras
 		case "1": gameState.camera = camera; break;
 		case "2": gameState.camera = avatarCam; break;
-    case "3": gameState.camera = edgeCam; break;
-    case "4": gameState.camera = cameraT; break;
+        case "3": gameState.camera = edgeCam; break;
+        case "4": gameState.camera = cameraT; break;
 
 		// move the camera around, relative to the avatar
 		case "ArrowLeft": avatarCam.translateY(1);break;
