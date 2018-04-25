@@ -55,6 +55,7 @@ function init(){
 }
 
 function createMainScene(){
+	
     // setup lighting
 	var light0 = createPointLight();
 	light0.position.set(0,200,20);
@@ -63,97 +64,72 @@ function createMainScene(){
 	var light1 = new THREE.AmbientLight( 0xffffff,0.25);
 	scene.add(light1);
 
-  /*var light2 = new THREE.SpotLight( 0xb1bec6 );
-  light2.position.set( 0, 150, 0 );
-  light2.castShadow = true;
-  scene.add( light2 );
-  light2.shadow.mapSize.width = 2048;  // default
-  light2.shadow.mapSize.height = 2048; // default
-  light2.shadow.camera.near = 0.5;       // default
-  light2.shadow.camera.far = 500      // default
-
-  var light3 = new THREE.SpotLight( 0x7a7a7a );
-  light3.position.set( -100, 10, 50 );
-  light3.castShadow = true;
-  scene.add( light3 );
-  light3.shadow.mapSize.width = 2048;  // default
-  light3.shadow.mapSize.height = 2048; // default
-  light3.shadow.camera.near = 0.5;       // default
-  light3.shadow.camera.far = 500*/
-
-  var light4 = new THREE.SpotLight( 0xd6ecff );
-  light4.position.set( 160, -150, -50 );
-  light4.castShadow = true;
-  scene.add( light4 );
-
-  light4.shadow.mapSize.width = 2048;  // default
-  light4.shadow.mapSize.height = 2048; // default
-  light4.shadow.camera.near = 0.5;       // default
-  light4.shadow.camera.far = 800;      // default
-  light4.intensity = 0.7;
-
-
-
-
+	var light4 = new THREE.SpotLight( 0xd6ecff );
+	light4.position.set( 160, -150, -50 );
+	light4.castShadow = true;
+	scene.add( light4 );
+	
+	light4.shadow.mapSize.width = 2048;  // default
+	light4.shadow.mapSize.height = 2048; // default
+	light4.shadow.camera.near = 0.5;       // default
+	light4.shadow.camera.far = 800;      // default
+	light4.intensity = 0.7;
+	
 	// create main camera
 	camera = new THREE.PerspectiveCamera( 90, window.innerWidth / window.innerHeight, 0.1, 1000 );
 	camera.position.set(0,50,0);
 	camera.lookAt(0,0,0);
-
-  cameraT = new THREE.PerspectiveCamera( 90, window.innerWidth / window.innerHeight, 0.1, 1000 );
+	
+	cameraT = new THREE.PerspectiveCamera( 90, window.innerWidth / window.innerHeight, 0.1, 1000 );
 	cameraT.position.set(0,0,0);
 	cameraT.lookAt(0,150,0);
-
+	
 	gameState.scene = 'start';
-
+	
 	// create the ground and the skybox
 	var ground = createGround('blood_dn.jpg');
 	scene.add(ground);
 	ground.position.set(0,-130,0);
 	ground.scale.set(0.5);
-
-
+	
 	var loader = new THREE.TextureLoader();
-	var cubeMaterials =
-	[ new THREE.MeshBasicMaterial({map: loader.load('../images/blood_ft.jpg'), side:THREE.DoubleSide}),
+	var cubeMaterials = [
+		new THREE.MeshBasicMaterial({map: loader.load('../images/blood_ft.jpg'), side:THREE.DoubleSide}),
 		new THREE.MeshBasicMaterial({map: loader.load('../images/blood_bk.jpg'), side:THREE.DoubleSide}),
-	  new THREE.MeshBasicMaterial({map: loader.load('../images/blood_up.jpg'), side:THREE.DoubleSide}),
-    new THREE.MeshBasicMaterial({map: loader.load('../images/blood_dn.jpg'), side:THREE.DoubleSide}),
-	  new THREE.MeshBasicMaterial({map: loader.load('../images/blood_rt.jpg'), side:THREE.DoubleSide}),
-	  new THREE.MeshBasicMaterial({map: loader.load('../images/blood_lf.jpg'), side:THREE.DoubleSide}),
+		new THREE.MeshBasicMaterial({map: loader.load('../images/blood_up.jpg'), side:THREE.DoubleSide}),
+		new THREE.MeshBasicMaterial({map: loader.load('../images/blood_dn.jpg'), side:THREE.DoubleSide}),
+		new THREE.MeshBasicMaterial({map: loader.load('../images/blood_rt.jpg'), side:THREE.DoubleSide}),
+		new THREE.MeshBasicMaterial({map: loader.load('../images/blood_lf.jpg'), side:THREE.DoubleSide}),
 	];
-
-
+	
 	var cube = createSkyBoxBG(cubeMaterials);
 	scene.add(cube);
 	cube.position.set(0,75,0);
-
-
-
+	
 	// create the avatar
 	avatarCam = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 0.1, 1000 );
 	initSuzanne();
 	avatarCam.translateY(-4);
 	avatarCam.translateZ(4);
 	gameState.camera = avatarCam;
-
+	
 	edgeCam = new THREE.PerspectiveCamera( 120, window.innerWidth / window.innerHeight, 0.1, 1000 );
 	edgeCam.position.set(20, 20, 10);
-
+	
 	addBalls();
-
+	
 	coneYellow = createConeMesh(8, 12, 'cone-yellow.png');
 	coneYellow.position.set(40, 3, 0);
 	scene.add(coneYellow);
-
+	
 	coneBlue = createConeMesh(8, 12,'cone-blue.png');
 	coneBlue.position.set(0, 3, 40);
 	scene.add(coneBlue);
-
+	
 	coneRed = createConeMesh(8, 12, 'cone-red.jpeg');
 	coneRed.position.set(0, 3, -40);
 	scene.add(coneRed);
-
+	
 	cone = createConeMesh(8, 12, 'cone-silver.jpg');
 	cone.position.set(-40, 3, 0);
 	scene.add(cone);
@@ -167,43 +143,45 @@ function createMainScene(){
 		}
 		}
 	);
-
-	npc = createBoxMesh2(0x0000ff,1,2,4);
-	npc.position.set(randN(100)-50, 5, randN(100)-50);
-	npc.addEventListener(
-		'collision',
-		function(other_object){
-			if(other_object == suzanne){
-				gameState.health --;
-				soundEffect('bad.wav');
-				npc.__dirtyPosition = true;
-				npc.position.set(randN(100)-50, 5, randN(100)-50);
-				console.log(npc.position);
-			}
-			if(gameState.health == 0){
-				gameState.scene = 'gameover';
-			}
-		}
-	);
-	scene.add(npc);
-
+	
+	createNPC(0x0000ff);
+	
+	// npc = createBoxMesh2(0x0000ff,1,2,4);
+	// npc.position.set(randN(100)-50, 5, randN(100)-50);
+	// npc.addEventListener(
+	// 	'collision',
+	// 	function(other_object){
+	// 		if(other_object == suzanne){
+	// 			gameState.health --;
+	// 			soundEffect('bad.wav');
+	// 			npc.__dirtyPosition = true;
+	// 			npc.position.set(randN(100)-50, 5, randN(100)-50);
+	// 			console.log(npc.position);
+	// 		}
+	// 		if(gameState.health == 0){
+	// 			gameState.scene = 'gameover';
+	// 		}
+	// 	}
+	// );
+	// scene.add(npc);
+	
+	
 	var wall = createWall(0xffaa00,50,10,1);
 	wall.position.set(10,0,20);
 	scene.add(wall);
-
+	
 	wall = createWall(0xffaa00,50,10,1);
 	wall.position.set(-50,0,20);
 	scene.add(wall);
-
+	
 	wall = createWall(0xffaa00,100,10,1);
 	wall.position.set(-10,0,-20);
 	scene.add(wall);
-
+	
 	wall = createWall(0xffaa00,1,10,30);
 	wall.position.set(0,0,0);
 	scene.add(wall);
-
-	//console.dir(npc);
+	
 	//playGameMusic();
 }
 
@@ -421,6 +399,40 @@ function createBoxMesh2(color,w,h,d){
 	return mesh;
 }
 
+function createNPC(color) {
+	var loader = new THREE.JSONLoader();
+	loader.load("../models/jet.json",
+		function ( geometry, materials ) {
+			console.log("loading npc");
+			var material = new THREE.MeshLambertMaterial( { color: color } );
+			npc = new Physijs.BoxMesh( geometry, material );
+			console.log("created npc mesh");
+			npc.position.set(randN(100)-50, 3, randN(100)-50);
+			npc.addEventListener(
+				'collision',
+				function(other_object){
+					if(other_object == suzanne){
+						gameState.health --;
+						soundEffect('bad.wav');
+						npc.__dirtyPosition = true;
+						npc.position.set(randN(100)-50, 5, randN(100)-50);
+					}
+					if(gameState.health == 0){
+						gameState.scene = 'gameover';
+					}
+				}
+			);
+			var s = 0.5;
+			npc.scale.y = s;
+			npc.scale.x = s;
+			npc.scale.z = s;
+			npc.castShadow = true;
+			scene.add(npc);
+		},
+		function(xhr) {
+			console.log( (xhr.loaded / xhr.total * 100) + '% loaded' );},
+		function(err) {console.log("error in loading: " + err);});
+}
 function createWall(color,w,h,d){
 	var geometry = new THREE.BoxGeometry( w, h, d);
 	var material = new THREE.MeshLambertMaterial( { color: color} );
@@ -499,19 +511,17 @@ function initSuzanne() {
 	var loader = new THREE.JSONLoader();
 	loader.load("../models/pikachu.json",
 		function ( geometry, materials ) {
-			console.log("loading suzanne");
+			console.log("loading pikachu");
 			var material = new THREE.MeshLambertMaterial( { color: 0xffde5b } );
-			var pmaterial = new Physijs.createMaterial(material, 0.9, 1);
-			suzanne = new Physijs.ConvexMesh( geometry, pmaterial );
-			console.log("created suzanne mesh");
+			suzanne = new Physijs.ConvexMesh( geometry, material );
+			console.log("created pikachu mesh");
 			console.log(JSON.stringify(suzanne.scale));
-			scene.add(suzanne);
 			var s = 0.5;
 			suzanne.scale.y = s;
 			suzanne.scale.x = s;
 			suzanne.scale.z = s;
 			suzanne.position.z = -5;
-			suzanne.position.y = 3;
+			suzanne.position.y = 10;
 			suzanne.position.x = -5;
 			suzanne.castShadow = true;
 			scene.add(suzanne);
@@ -656,9 +666,10 @@ function keyup(event){
 
 function updateNPC(){
 	npc.lookAt(suzanne.position);
-	if (npc.position.distanceTo(suzanne.position)< 30){
-		npc.setLinearVelocity(npc.getWorldDirection().multiplyScalar(5));
-	}
+	npc.setLinearVelocity(npc.getWorldDirection().multiplyScalar(5));
+	// if (npc.position.distanceTo(suzanne.position)< 30){
+	// 	npc.setLinearVelocity(npc.getWorldDirection().multiplyScalar(5));
+	// }
 }
 
 function updateAvatar(){
@@ -739,87 +750,130 @@ function animate() {
             edgeCam.lookAt(suzanne.position);
 			if (gameState.score >= 5) {
 				if (!hasNPC2){
-					npc2 = createBoxMesh2(0xff0000,1,2,4);
-					npc2.position.set(randN(100)-50, 5, randN(100)-50);
-					scene.add(npc2);
-					npc2.addEventListener(
-						'collision',
-						function(other_object){
-							if(other_object == suzanne){
-								gameState.health --;
-								soundEffect('bad.wav');
-								npc2.__dirtyPosition = true;
-								npc2.position.set(randN(100)-50, 5, randN(100)-50);
-								console.log(npc2.position);
-							}
-							if(gameState.health == 0){
-								gameState.scene = 'gameover';
-							}
-						}
-					);
-
+					var loader = new THREE.JSONLoader();
+					loader.load("../models/jet.json",
+						function ( geometry, materials ) {
+							console.log("loading npc");
+							var material = new THREE.MeshLambertMaterial( { color: 0xff0000 } );
+							npc2 = new Physijs.BoxMesh( geometry, material );
+							console.log("created npc mesh");
+							npc2.position.set(randN(100)-50, 3, randN(100)-50);
+							npc2.addEventListener(
+								'collision',
+								function(other_object){
+									if(other_object == suzanne){
+										gameState.health --;
+										soundEffect('bad.wav');
+										npc2.__dirtyPosition = true;
+										npc2.position.set(randN(100)-50, 5, randN(100)-50);
+									}
+									if(gameState.health == 0){
+										gameState.scene = 'gameover';
+									}
+								}
+							);
+							var s = 0.5;
+							npc2.scale.y = s;
+							npc2.scale.x = s;
+							npc2.scale.z = s;
+							npc2.castShadow = true;
+							scene.add(npc2);
+						},
+						function(xhr) {
+							console.log( (xhr.loaded / xhr.total * 100) + '% loaded' );},
+						function(err) {console.log("error in loading: " + err);});
 					hasNPC2 = true;
 				}
 				npc2.lookAt(suzanne.position);
-				if (npc2.position.distanceTo(suzanne.position)< 30){
-					npc2.setLinearVelocity(npc2.getWorldDirection().multiplyScalar(5));
-				}
+				npc2.setLinearVelocity(npc2.getWorldDirection().multiplyScalar(5));
+				// if (npc2.position.distanceTo(suzanne.position)< 30){
+				// 	npc2.setLinearVelocity(npc2.getWorldDirection().multiplyScalar(5));
+				// }
 			}
 			if (gameState.score >= 10) {
 				if (!hasNPC3){
-					npc3 = createBoxMesh2(0xfffff,1,2,4);
-					npc3.position.set(randN(100)-50, 5, randN(100)-50);
-					scene.add(npc3);
-					npc3.addEventListener(
-						'collision',
-						function(other_object){
-							if(other_object == suzanne){
-								gameState.health --;
-								soundEffect('bad.wav');
-								npc3.__dirtyPosition = true;
-								npc3.position.set(randN(100)-50, 5, randN(100)-50);
-								console.log(npc3.position);
-							}
-							if(gameState.health == 0){
-								gameState.scene = 'gameover';
-							}
-						}
-					);
-
+					var loader = new THREE.JSONLoader();
+					loader.load("../models/jet.json",
+						function ( geometry, materials ) {
+							console.log("loading npc");
+							var material = new THREE.MeshLambertMaterial( { color: 0xfffff } );
+							npc3 = new Physijs.BoxMesh( geometry, material );
+							console.log("created npc mesh");
+							npc3.position.set(randN(100)-50, 3, randN(100)-50);
+							npc3.addEventListener(
+								'collision',
+								function(other_object){
+									if(other_object == suzanne){
+										gameState.health --;
+										soundEffect('bad.wav');
+										npc3.__dirtyPosition = true;
+										npc3.position.set(randN(100)-50, 5, randN(100)-50);
+									}
+									if(gameState.health == 0){
+										gameState.scene = 'gameover';
+									}
+								}
+							);
+							var s = 0.5;
+							npc3.scale.y = s;
+							npc3.scale.x = s;
+							npc3.scale.z = s;
+							npc3.castShadow = true;
+							scene.add(npc3);
+						},
+						function(xhr) {
+							console.log( (xhr.loaded / xhr.total * 100) + '% loaded' );},
+						function(err) {console.log("error in loading: " + err);});
 					hasNPC3 = true;
 				}
 				npc3.lookAt(suzanne.position);
-				if (npc3.position.distanceTo(suzanne.position)< 30){
-					npc3.setLinearVelocity(npc3.getWorldDirection().multiplyScalar(5));
-				}
+				npc3.setLinearVelocity(npc3.getWorldDirection().multiplyScalar(5));
+				// if (npc3.position.distanceTo(suzanne.position)< 30){
+				// 	npc3.setLinearVelocity(npc3.getWorldDirection().multiplyScalar(5));
+				// }
 			}
 			if (gameState.score >= 15) {
 				if (!hasNPC4){
-					npc4 = createBoxMesh2(0xff91cf,1,2,4);
-					npc4.position.set(randN(100)-50, 5, randN(100)-50);
-					scene.add(npc4);
-					npc4.addEventListener(
-						'collision',
-						function(other_object){
-							if(other_object == suzanne){
-								gameState.health --;
-								soundEffect('bad.wav');
-								npc4.__dirtyPosition = true;
-								npc4.position.set(randN(100)-50, 5, randN(100)-50);
-								console.log(npc4.position);
-							}
-							if(gameState.health == 0){
-								gameState.scene = 'gameover';
-							}
-						}
-					);
-
+					//createNPC(npc4, 0xff91cf);
+					var loader = new THREE.JSONLoader();
+					loader.load("../models/jet.json",
+						function ( geometry, materials ) {
+							console.log("loading npc");
+							var material = new THREE.MeshLambertMaterial( { color: 0xff91cf } );
+							npc4 = new Physijs.BoxMesh( geometry, material );
+							console.log("created npc mesh");
+							npc4.position.set(randN(100)-50, 3, randN(100)-50);
+							npc4.addEventListener(
+								'collision',
+								function(other_object){
+									if(other_object == suzanne){
+										gameState.health --;
+										soundEffect('bad.wav');
+										npc4.__dirtyPosition = true;
+										npc4.position.set(randN(100)-50, 5, randN(100)-50);
+									}
+									if(gameState.health == 0){
+										gameState.scene = 'gameover';
+									}
+								}
+							);
+							var s = 0.5;
+							npc4.scale.y = s;
+							npc4.scale.x = s;
+							npc4.scale.z = s;
+							npc4.castShadow = true;
+							scene.add(npc4);
+						},
+						function(xhr) {
+							console.log( (xhr.loaded / xhr.total * 100) + '% loaded' );},
+						function(err) {console.log("error in loading: " + err);});
 					hasNPC4 = true;
 				}
 				npc4.lookAt(suzanne.position);
-				if (npc4.position.distanceTo(suzanne.position)< 30){
-					npc4.setLinearVelocity(npc4.getWorldDirection().multiplyScalar(5));
-				}
+				npc4.setLinearVelocity(npc4.getWorldDirection().multiplyScalar(5));
+				// if (npc4.position.distanceTo(suzanne.position)< 30){
+				// 	npc4.setLinearVelocity(npc4.getWorldDirection().multiplyScalar(5));
+				// }
 
 			}
 
@@ -837,6 +891,4 @@ function animate() {
 	var info = document.getElementById("info");
 	info.innerHTML= '<div style="font-size:24pt">Score: '
 		+ gameState.score + "  Health = " + gameState.health + '</div>';
-
-
 }
