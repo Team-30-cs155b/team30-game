@@ -11,6 +11,8 @@ var scene, renderer;  // all threejs programs need these
 var camera, avatarCam, edgeCam;  // we have two cameras in the main scene
 var suzanne; // The monkey avatar
 var cone, coneYellow, coneBlue, coneRed;
+var tetraS, tetraY, tetraB, tetraR;
+var icosS, icosY, icosB, icosR;
 var npc;
 
 var startScene, startCamera, startText;
@@ -144,26 +146,35 @@ function createMainScene(){
 		}
 	);
 
-	createNPC(0x0000ff);
+	tetraS = createTetra(0xf2f2f2);
+	tetraS.position.set(-40, 15, 0);
+	scene.add(tetraS);
 
-	// npc = createBoxMesh2(0x0000ff,1,2,4);
-	// npc.position.set(randN(100)-50, 5, randN(100)-50);
-	// npc.addEventListener(
-	// 	'collision',
-	// 	function(other_object){
-	// 		if(other_object == suzanne){
-	// 			gameState.health --;
-	// 			soundEffect('bad.wav');
-	// 			npc.__dirtyPosition = true;
-	// 			npc.position.set(randN(100)-50, 5, randN(100)-50);
-	// 			console.log(npc.position);
-	// 		}
-	// 		if(gameState.health == 0){
-	// 			gameState.scene = 'gameover';
-	// 		}
-	// 	}
-	// );
-	// scene.add(npc);
+	tetraY = createTetra(0xfff777);
+	tetraY.position.set(40, 15, 0);
+	scene.add(tetraY);
+
+	tetraB = createTetra(0x77bbff);
+	tetraB.position.set(0, 15, 40);
+	scene.add(tetraB);
+
+	tetraR = createTetra(0xff0000);
+	tetraR.position.set(0, 15, -40);
+	scene.add(tetraR);
+
+	icosS = createIcos(0xf2f2f2);
+	icosS.position.set(-40, 15, 0);
+
+	icosY = createIcos(0xfff777);
+	icosY.position.set(40, 15, 0);
+
+	icosB = createIcos(0x77bbff);
+	icosB.position.set(0, 15, 40);
+
+	icosR = createIcos(0xff0000);
+	icosR.position.set(0, 15, -40);
+
+	createNPC(0x0000ff);
 
 
 	var wall = createWall(0xffaa00,50,10,1);
