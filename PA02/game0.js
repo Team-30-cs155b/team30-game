@@ -606,7 +606,7 @@ function createTetra(c){
 		'collision',
 		function( other_object, relative_velocity, relative_rotation, contact_normal ) {
 			if(other_object == suzanne){
-				gameState.health += 3;
+				gameState.health += 2;
 				soundEffect('good.wav');
 			}
 		}
@@ -627,7 +627,7 @@ function createIcos(c){
 		'collision',
 		function( other_object, relative_velocity, relative_rotation, contact_normal ) {
 			if(other_object == suzanne){
-				gameState.health += 5;
+				gameState.health += 3;
 				soundEffect('good.wav');
 			}
 		}
