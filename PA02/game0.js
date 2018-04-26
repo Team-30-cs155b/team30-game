@@ -55,7 +55,7 @@ function init(){
 }
 
 function createMainScene(){
-	
+
     // setup lighting
 	var light0 = createPointLight();
 	light0.position.set(0,200,20);
@@ -68,30 +68,30 @@ function createMainScene(){
 	light4.position.set( 160, -150, -50 );
 	light4.castShadow = true;
 	scene.add( light4 );
-	
+
 	light4.shadow.mapSize.width = 2048;  // default
 	light4.shadow.mapSize.height = 2048; // default
 	light4.shadow.camera.near = 0.5;       // default
 	light4.shadow.camera.far = 800;      // default
 	light4.intensity = 0.7;
-	
+
 	// create main camera
 	camera = new THREE.PerspectiveCamera( 90, window.innerWidth / window.innerHeight, 0.1, 1000 );
 	camera.position.set(0,50,0);
 	camera.lookAt(0,0,0);
-	
+
 	cameraT = new THREE.PerspectiveCamera( 90, window.innerWidth / window.innerHeight, 0.1, 1000 );
 	cameraT.position.set(0,0,0);
 	cameraT.lookAt(0,150,0);
-	
+
 	gameState.scene = 'start';
-	
+
 	// create the ground and the skybox
 	var ground = createGround('blood_dn.jpg');
 	scene.add(ground);
 	ground.position.set(0,-130,0);
 	ground.scale.set(0.5);
-	
+
 	var loader = new THREE.TextureLoader();
 	var cubeMaterials = [
 		new THREE.MeshBasicMaterial({map: loader.load('../images/blood_ft.jpg'), side:THREE.DoubleSide}),
@@ -101,35 +101,35 @@ function createMainScene(){
 		new THREE.MeshBasicMaterial({map: loader.load('../images/blood_rt.jpg'), side:THREE.DoubleSide}),
 		new THREE.MeshBasicMaterial({map: loader.load('../images/blood_lf.jpg'), side:THREE.DoubleSide}),
 	];
-	
+
 	var cube = createSkyBoxBG(cubeMaterials);
 	scene.add(cube);
 	cube.position.set(0,75,0);
-	
+
 	// create the avatar
 	avatarCam = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 0.1, 1000 );
 	initSuzanne();
 	avatarCam.translateY(-4);
 	avatarCam.translateZ(4);
 	gameState.camera = avatarCam;
-	
+
 	edgeCam = new THREE.PerspectiveCamera( 120, window.innerWidth / window.innerHeight, 0.1, 1000 );
 	edgeCam.position.set(20, 20, 10);
-	
+
 	addBalls();
-	
+
 	coneYellow = createConeMesh(8, 12, 'cone-yellow.png');
 	coneYellow.position.set(40, 3, 0);
 	scene.add(coneYellow);
-	
+
 	coneBlue = createConeMesh(8, 12,'cone-blue.png');
 	coneBlue.position.set(0, 3, 40);
 	scene.add(coneBlue);
-	
+
 	coneRed = createConeMesh(8, 12, 'cone-red.jpeg');
 	coneRed.position.set(0, 3, -40);
 	scene.add(coneRed);
-	
+
 	cone = createConeMesh(8, 12, 'cone-silver.jpg');
 	cone.position.set(-40, 3, 0);
 	scene.add(cone);
@@ -143,9 +143,9 @@ function createMainScene(){
 		}
 		}
 	);
-	
+
 	createNPC(0x0000ff);
-	
+
 	// npc = createBoxMesh2(0x0000ff,1,2,4);
 	// npc.position.set(randN(100)-50, 5, randN(100)-50);
 	// npc.addEventListener(
@@ -164,25 +164,25 @@ function createMainScene(){
 	// 	}
 	// );
 	// scene.add(npc);
-	
-	
+
+
 	var wall = createWall(0xffaa00,50,10,1);
 	wall.position.set(10,0,20);
 	scene.add(wall);
-	
+
 	wall = createWall(0xffaa00,50,10,1);
 	wall.position.set(-50,0,20);
 	scene.add(wall);
-	
+
 	wall = createWall(0xffaa00,100,10,1);
 	wall.position.set(-10,0,-20);
 	scene.add(wall);
-	
+
 	wall = createWall(0xffaa00,1,10,30);
 	wall.position.set(0,0,0);
 	scene.add(wall);
-	
-	//playGameMusic();
+
+	playGameMusic();
 }
 
 function createStartScene(){
@@ -314,7 +314,7 @@ function playGameMusic(){
 
 	// load a sound and set it as the Audio object's buffer
 	var audioLoader = new THREE.AudioLoader();
-	audioLoader.load( '/sounds/loop.mp3', function( buffer ) {
+	audioLoader.load( '/sounds/Hans Zimmer - Cornfield Chase.flac', function( buffer ) {
 		sound.setBuffer( buffer );
 		sound.setLoop( true );
 		sound.setVolume( 0.05 );
@@ -435,7 +435,10 @@ function createNPC(color) {
 }
 function createWall(color,w,h,d){
 	var geometry = new THREE.BoxGeometry( w, h, d);
-	var material = new THREE.MeshLambertMaterial( { color: color} );
+	var texture = new THREE.TextureLoader().load( '../images/11.jpg' );
+	texture.wrapS = THREE.RepeatWrapping;
+	texture.wrapT = THREE.RepeatWrapping;
+	var material = new THREE.MeshLambertMaterial( { color: color, map: texture});
 	mesh = new Physijs.BoxMesh( geometry, material, 0 );
 	mesh.castShadow = true;
 	return mesh;
@@ -763,6 +766,7 @@ function animate() {
 								function(other_object){
 									if(other_object == suzanne){
 										gameState.health --;
+
 										soundEffect('bad.wav');
 										npc2.__dirtyPosition = true;
 										npc2.position.set(randN(100)-50, 5, randN(100)-50);
@@ -848,7 +852,7 @@ function animate() {
 								function(other_object){
 									if(other_object == suzanne){
 										gameState.health --;
-										soundEffect('bad.wav');
+									 soundEffect('bad.wav');
 										npc4.__dirtyPosition = true;
 										npc4.position.set(randN(100)-50, 5, randN(100)-50);
 									}
