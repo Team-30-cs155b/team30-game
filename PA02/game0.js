@@ -135,16 +135,6 @@ function createMainScene(){
 	cone = createConeMesh(8, 12, 'cone-silver.jpg');
 	cone.position.set(-40, 3, 0);
 	scene.add(cone);
-	cone.addEventListener(
-		'collision',
-		function(other_object){
-			if (other_object==suzanne){
-			gameState.health ++;
-			soundEffect('good.wav');
-			console.log("hits the cone, health increases by 1");
-		}
-		}
-	);
 
 	tetraS = createTetra(0xf2f2f2);
 	tetraS.position.set(-40, 15, 0);
@@ -337,6 +327,9 @@ function addBalls() {
 					scene.remove(npc4);
 					gameState.health += 1;
 					soundEffect('good.wav');
+				} else if (other_object == cone) {
+					scene.remove(this);
+					gameState.health += 1;
 				}
 			}
 		);
