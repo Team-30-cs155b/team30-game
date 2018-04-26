@@ -559,17 +559,68 @@ function createBall(m, c){
 	var mesh = new Physijs.BoxMesh( geometry, pmaterial );
 	mesh.setDamping(0.1,0.1);
 	mesh.castShadow = true;
+	mesh.addEventListener(
+			'collision',
+			function( other_object, relative_velocity, relative_rotation, contact_normal ) {
+				if (other_object == npc) {
+					scene.remove(npc);
+					gameState.health += 1;
+					soundEffect('good.wav');
+				} else if (other_object == npc2) {
+					scene.remove(npc2);
+					gameState.health += 1;
+					soundEffect('good.wav');
+				} else if (other_object == npc3) {
+					scene.remove(npc3);
+					gameState.health += 1;
+					soundEffect('good.wav');
+				} else if (other_object == npc4) {
+					scene.remove(npc4);
+					gameState.health += 1;
+					soundEffect('good.wav');
+				}
+			}
+		);
 	return mesh;
 }
 
-function createSPBall(){
-	var params = { opacity: 0.15 };
-	var geometry = new THREE.SphereGeometry(0.2, 16, 16);
-	var material = new THREE.MeshLambertMaterial( {opacity: params.opacity, transparent: true} );
+function createTetra(c){
+	var params = { opacity: 0.75 };
+	var geometry = new THREE.TetrahedronGeometry(1, 0);
+	var material = new THREE.MeshLambertMaterial( {opacity: params.opacity, transparent: true, color: c} );
 	var pmaterial = new Physijs.createMaterial(material,0.9,0.95);
-	var mesh = new Physijs.BoxMesh( geometry, pmaterial );
+	var mesh = new Physijs.BoxMesh( geometry, pmaterial, 0);
+	mesh.setDamping(0.1,0.1);
+	mesh.addEventListener(
+		'collision',
+		function( other_object, relative_velocity, relative_rotation, contact_normal ) {
+			if(other_object == suzanne){
+				gameState.health += 3;
+				soundEffect('good.wav');
+			}
+		}
+	);
+	mesh.castShadow = true;
+	return mesh;
+}
+
+function createIcos(c){
+	var params = { opacity: 0.9 };
+	var geometry = new THREE.IcosahedronGeometry(1, 0);
+	var material = new THREE.MeshLambertMaterial( {opacity: params.opacity, transparent: true, color: c} );
+	var pmaterial = new Physijs.createMaterial(material,0.9,0.95);
+	var mesh = new Physijs.BoxMesh( geometry, pmaterial, 0);
 	mesh.setDamping(0.1,0.1);
 	mesh.castShadow = true;
+	mesh.addEventListener(
+		'collision',
+		function( other_object, relative_velocity, relative_rotation, contact_normal ) {
+			if(other_object == suzanne){
+				gameState.health += 5;
+				soundEffect('good.wav');
+			}
+		}
+	);
 	return mesh;
 }
 
@@ -626,7 +677,7 @@ function keydown(event){
 		case "p": controls.up = true; break;
 		case "f": controls.down = true; break;
 		case "m": controls.speed = 30; break;
-        case " ": controls.fly = true;
+		case " ": controls.fly = true;
             console.log("space!!");
             break;
         case "h": controls.reset = true; break;
@@ -634,8 +685,8 @@ function keydown(event){
 		// switch cameras
 		case "1": gameState.camera = camera; break;
 		case "2": gameState.camera = avatarCam; break;
-        case "3": gameState.camera = edgeCam; break;
-        case "4": gameState.camera = cameraT; break;
+		case "3": gameState.camera = edgeCam; break;
+		case "4": gameState.camera = cameraT; break;
 
 		// move the camera around, relative to the avatar
 		case "ArrowLeft": avatarCam.translateY(1);break;
@@ -662,8 +713,8 @@ function keyup(event){
 		case "p": controls.up    = false; break;
 		case "f": controls.down  = false; break;
 		case "m": controls.speed = 10; break;
-        case " ": controls.fly = false; break;
-        case "h": controls.reset = false; break;
+		case " ": controls.fly = false; break;
+		case "h": controls.reset = false; break;
 	}
 }
 
@@ -730,6 +781,18 @@ var hasNPC4 = false;
 var npc2, npc3, npc4;
 function animate() {
 	requestAnimationFrame( animate );
+
+	var currentTime = (new Date()).getTime();
+	counter = currentTime;
+
+	tetraS.rotation.x = counter * 0.01;
+	tetraY.rotation.x = -counter * 0.01;
+	tetraB.rotation.x = counter * 0.01;
+	tetraR.rotation.x = -counter * 0.01;
+	icosS.rotation.z = counter * 0.01;
+	icosY.rotation.z = -counter * 0.01;
+	icosB.rotation.z = counter * 0.01;
+	icosR.rotation.z = -counter * 0.01;
 
 	switch(gameState.scene) {
 		case "start":
@@ -832,9 +895,14 @@ function animate() {
 				}
 				npc3.lookAt(suzanne.position);
 				npc3.setLinearVelocity(npc3.getWorldDirection().multiplyScalar(5));
-				// if (npc3.position.distanceTo(suzanne.position)< 30){
-				// 	npc3.setLinearVelocity(npc3.getWorldDirection().multiplyScalar(5));
-				// }
+				scene.remove(tetraS);
+				scene.remove(tetraY);
+				scene.remove(tetraB);
+				scene.remove(tetraR);
+				scene.add(icosS);
+				scene.add(icosY);
+				scene.add(icosB);
+				scene.add(icosR);
 			}
 			if (gameState.score >= 15) {
 				if (!hasNPC4){
