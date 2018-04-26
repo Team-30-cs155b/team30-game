@@ -330,6 +330,7 @@ function addBalls() {
 				} else if (other_object == cone) {
 					scene.remove(this);
 					gameState.health += 1;
+					soundEffect('good.wav');
 				}
 			}
 		);
