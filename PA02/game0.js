@@ -337,7 +337,6 @@ function addBalls() {
 					scene.remove(npc4);
 					gameState.health += 1;
 					soundEffect('good.wav');
-					scene.remove(this);
 				}
 			}
 		);
@@ -701,7 +700,10 @@ function keydown(event){
 		case "h": controls.reset = true; break;
 
 		// switch cameras
-		case "1": gameState.camera = camera; break;
+		case "1":
+						gameState.camera = camera;
+						gameState.health -= 1;
+						break;
 		case "2": gameState.camera = avatarCam; break;
 		case "3": gameState.camera = edgeCam; break;
 		case "4": gameState.camera = cameraT; break;
