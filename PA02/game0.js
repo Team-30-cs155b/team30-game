@@ -254,6 +254,7 @@ function addBalls() {
 	var numYBalls = 10;
 	var numBBalls = 10;
 	var numRBalls = 10;
+	var numSBalls = 5;
 
 	for(i = 0; i < numYBalls; i++) {
 		var yellowBall = createBall(1, 0xfff777);
@@ -263,7 +264,7 @@ function addBalls() {
 			'collision',
 			function( other_object, relative_velocity, relative_rotation, contact_normal ) {
 				if(other_object == coneYellow){
-					gameState.score += 5;
+					gameState.score += 4;
 					soundEffect('good.wav');
 					scene.remove(this);
 					if (gameState.score == goal) {
@@ -282,7 +283,7 @@ function addBalls() {
 			'collision',
 			function( other_object, relative_velocity, relative_rotation, contact_normal ) {
 				if(other_object == coneBlue){
-					gameState.score += 5;
+					gameState.score += 4;
 					soundEffect('good.wav');
 					scene.remove(this);
 					if (gameState.score == goal) {
@@ -300,12 +301,43 @@ function addBalls() {
 			'collision',
 			function( other_object, relative_velocity, relative_rotation, contact_normal ) {
 				if(other_object == coneRed){
-					gameState.score += 5;
+					gameState.score += 4;
 					soundEffect('good.wav');
 					scene.remove(this);
 					if (gameState.score == goal) {
 						gameState.scene = 'youwon';
 					}
+				}
+			}
+		);
+	}
+	for(i = 0; i < numSBalls; i++) {
+		var silverBall = createBall(0.75, 0xf2f2f2);
+		silverBall.position.set(randN(160)-80,30,randN(160)-80);
+		scene.add(silverBall);
+		silverBall.addEventListener(
+			'collision',
+			function( other_object, relative_velocity, relative_rotation, contact_normal ) {
+				if (other_object == npc) {
+					scene.remove(npc);
+					gameState.health += 1;
+					soundEffect('good.wav');
+					scene.remove(this);
+				} else if (other_object == npc2) {
+					scene.remove(npc2);
+					gameState.health += 1;
+					soundEffect('good.wav');
+					scene.remove(this);
+				} else if (other_object == npc3) {
+					scene.remove(npc3);
+					gameState.health += 1;
+					soundEffect('good.wav');
+					scene.remove(this);
+				} else if (other_object == npc4) {
+					scene.remove(npc4);
+					gameState.health += 1;
+					soundEffect('good.wav');
+					scene.remove(this);
 				}
 			}
 		);
@@ -567,28 +599,6 @@ function createBall(m, c){
 	var mesh = new Physijs.BoxMesh( geometry, pmaterial );
 	mesh.setDamping(0.1,0.1);
 	mesh.castShadow = true;
-	mesh.addEventListener(
-			'collision',
-			function( other_object, relative_velocity, relative_rotation, contact_normal ) {
-				if (other_object == npc) {
-					scene.remove(npc);
-					gameState.health += 1;
-					soundEffect('good.wav');
-				} else if (other_object == npc2) {
-					scene.remove(npc2);
-					gameState.health += 1;
-					soundEffect('good.wav');
-				} else if (other_object == npc3) {
-					scene.remove(npc3);
-					gameState.health += 1;
-					soundEffect('good.wav');
-				} else if (other_object == npc4) {
-					scene.remove(npc4);
-					gameState.health += 1;
-					soundEffect('good.wav');
-				}
-			}
-		);
 	return mesh;
 }
 
@@ -688,7 +698,7 @@ function keydown(event){
 		case " ": controls.fly = true;
             console.log("space!!");
             break;
-        case "h": controls.reset = true; break;
+		case "h": controls.reset = true; break;
 
 		// switch cameras
 		case "1": gameState.camera = camera; break;
