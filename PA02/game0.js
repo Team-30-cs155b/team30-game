@@ -805,6 +805,12 @@ function keyup(event){
 function updateNPC(){
 	npc.lookAt(suzanne.position);
 	npc.setLinearVelocity(npc.getWorldDirection().multiplyScalar(5));
+<<<<<<< HEAD
+=======
+	// if (npc.position.distanceTo(suzanne.position)< 30){
+	// 	npc.setLinearVelocity(npc.getWorldDirection().multiplyScalar(5));
+	// }
+>>>>>>> f53c2dfaefffd8cc5f36dad65ca0fe0e7c91e279
 }
 
 function updateAvatar(){
@@ -1044,6 +1050,7 @@ function animate() {
 	var info = document.getElementById("info");
 	info.innerHTML= '<div style="font-size:24pt">Score: '
 		+ gameState.score + "  Health = " + gameState.health + '</div>';
+<<<<<<< HEAD
 }/*
 Game 0
 This is a ThreeJS program which implements a simple game
@@ -2093,4 +2100,6 @@ function animate() {
 	var info = document.getElementById("info");
 	info.innerHTML= '<div style="font-size:24pt">Score: '
 		+ gameState.score + "  Health = " + gameState.health + '</div>';
+=======
+>>>>>>> f53c2dfaefffd8cc5f36dad65ca0fe0e7c91e279
 }
