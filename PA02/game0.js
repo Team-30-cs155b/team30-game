@@ -175,10 +175,6 @@ function createMainScene(){
 	wall.position.set(-50,0,20);
 	scene.add(wall);
 
-	wall = createWall(0xffaa00,90,10,1);
-	wall.position.set(-50,0,40);
-	scene.add(wall);
-
 	wall = createWall(0xffaa00,100,10,1);
 	wall.position.set(-10,0,-20);
 	scene.add(wall);
@@ -237,7 +233,7 @@ function createStartScene(){
 
 function createEndScene(){
 	endScene = initScene();
-	endText = createSkyBox('we-did-it.jpg',10);
+	endText = createSkyBox('youwon.png',10);
 	endScene.add(endText);
 	var light1 = createPointLight();
 	light1.position.set(0,200,20);
@@ -753,6 +749,17 @@ function keyup(event){
 		case "m": controls.speed = 10; break;
 		case " ": controls.fly = false; break;
 		case "h": controls.reset = false; break;
+		case "5": suzanne.__dirtyPosition = true;
+							suzanne.position.set(-40,10,40);
+							break;
+		case "6": suzanne.__dirtyPosition = true;
+							suzanne.position.set(-40,10,-40);
+							break;
+		case "7": suzanne.__dirtyPosition = true;
+							suzanne.position.set(-40,10,40);
+							break;
+
+
 	}
 }
 
