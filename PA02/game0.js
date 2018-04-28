@@ -14,6 +14,8 @@ var cone, coneYellow, coneBlue, coneRed;
 var tetraS, tetraY, tetraB, tetraR;
 var icosS, icosY, icosB, icosR;
 var npc;
+var ground;
+
 
 var startScene, startCamera, startText;
 var endScene, endCamera, endText;
@@ -89,7 +91,7 @@ function createMainScene(){
 	gameState.scene = 'start';
 
 	// create the ground and the skybox
-	var ground = createGround('blood_dn.jpg');
+	ground = createGround('blood_dn.jpg');
 	scene.add(ground);
 	ground.position.set(0,-130,0);
 	ground.scale.set(0.5);
@@ -635,6 +637,41 @@ function createIcos(c){
 	return mesh;
 }
 
+function attack(){
+	 var attackBall = new Physijs.SphereMesh(
+      new THREE.SphereGeometry(0.1,16,16),
+      new THREE.MeshLambertMaterial({color:0xffffff})
+    )
+
+		attackBall.addEventListener('collision',function(other_object){
+			if(other_object == ground){
+				scene.remove(this);
+			}
+			if(other_object == npc ){
+				scene.remove(npc);
+				gameState.health += 1;
+			}
+			if(other_object == npc2){
+				scene.remove(npc2);
+				gameState.health +=1;
+			}
+			if(other_object == npc3){
+				scene.remove(npc3);
+				gameState.health +=1;
+			}
+			if(other_object == npc4){
+				scene.remove(npc4);
+				gameState.health +=1;
+			}
+		})
+
+    attackBall.position.set(suzanne.position.x,suzanne.position.y+2,suzanne.position.z);
+    scene.add(attackBall)
+    attackBall.setLinearVelocity(new THREE.Vector3(0,10,0))
+		console.dir(suzanne);
+    console.dir(attackBall)
+}
+
 var clock;
 
 function initControls(){
@@ -692,6 +729,7 @@ function keydown(event){
             console.log("space!!");
             break;
 		case "h": controls.reset = true; break;
+		case "v": attack(); break;
 
 		// switch cameras
 		case "1":
@@ -712,6 +750,7 @@ function keydown(event){
 		case "z": avatarCam.rotateX(Math.PI/180); break;
 		case "c": avatarCam.rotateX(-Math.PI/180); break;
 		case "b": avatarCam.rotation.y = 0; breake;
+
 	}
 }
 
