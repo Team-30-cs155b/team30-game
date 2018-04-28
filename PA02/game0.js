@@ -185,6 +185,26 @@ function createMainScene(){
 	wall.position.set(0,0,0);
 	scene.add(wall);
 
+	wall = createWall(0xffaa00,1,10,30);
+	wall.position.set(-50,0,-0);
+	scene.add(wall);
+
+	wall = createWall(0xffaa00,1,10,30);
+	wall.position.set(-40,0,-40);
+	scene.add(wall);
+
+	wall = createWall(0xffaa00,1,10,30);
+	wall.position.set(20,0,-40);
+	scene.add(wall);
+
+	wall = createWall(0xffaa00,1,10,100);
+	wall.position.set(60,0,0);
+	scene.add(wall);
+
+	wall = createWall(0xffaa00,1,10,100);
+	wall.position.set(-75,0,0);
+	scene.add(wall);
+
 	playGameMusic();
 }
 
@@ -768,6 +788,17 @@ function keyup(event){
 		case "m": controls.speed = 10; break;
 		case " ": controls.fly = false; break;
 		case "h": controls.reset = false; break;
+		case "5": suzanne.__dirtyPosition = true;
+							suzanne.position.set(-40,10,40);
+							break;
+		case "6": suzanne.__dirtyPosition = true;
+							suzanne.position.set(-40,10,-40);
+							break;
+		case "7": suzanne.__dirtyPosition = true;
+							suzanne.position.set(-40,10,40);
+							break;
+
+
 	}
 }
 
