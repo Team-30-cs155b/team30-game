@@ -175,12 +175,36 @@ function createMainScene(){
 	wall.position.set(-50,0,20);
 	scene.add(wall);
 
+	wall = createWall(0xffaa00,90,10,1);
+	wall.position.set(-50,0,40);
+	scene.add(wall);
+
 	wall = createWall(0xffaa00,100,10,1);
 	wall.position.set(-10,0,-20);
 	scene.add(wall);
 
 	wall = createWall(0xffaa00,1,10,30);
 	wall.position.set(0,0,0);
+	scene.add(wall);
+
+	wall = createWall(0xffaa00,1,10,30);
+	wall.position.set(-50,0,-0);
+	scene.add(wall);
+
+	wall = createWall(0xffaa00,1,10,30);
+	wall.position.set(-40,0,-40);
+	scene.add(wall);
+
+	wall = createWall(0xffaa00,1,10,30);
+	wall.position.set(20,0,-40);
+	scene.add(wall);
+
+	wall = createWall(0xffaa00,1,10,100);
+	wall.position.set(60,0,0);
+	scene.add(wall);
+
+	wall = createWall(0xffaa00,1,10,100);
+	wall.position.set(-75,0,0);
 	scene.add(wall);
 
 	playGameMusic();
@@ -213,7 +237,7 @@ function createStartScene(){
 
 function createEndScene(){
 	endScene = initScene();
-	endText = createSkyBox('youwon.png',10);
+	endText = createSkyBox('we-did-it.jpg',10);
 	endScene.add(endText);
 	var light1 = createPointLight();
 	light1.position.set(0,200,20);
